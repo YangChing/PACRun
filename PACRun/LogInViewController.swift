@@ -21,7 +21,15 @@ class LogInViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+
+    @IBAction func nextButton(_ sender: Any) {
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "StreetViewController") as! StreetViewController
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+    }
 
     /*
     // MARK: - Navigation

@@ -42,17 +42,17 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
 
     }
+    //GPS位置改變時會執行
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
         let location = locations.first
         self.GPSCoordinate = location?.coordinate
-        print("GPScoordinate:\(GPSCoordinate)")
+        //GPS位置改變，post給其他Notification
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCoordinate"), object: nil, userInfo: ["GPSCoordinate":GPSCoordinate!])
-
-       // NotificationCenter.
     }
+    //Heading方向改變時會執行
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         self.GPSHeading = newHeading.trueHeading
+        //Heading方向改變，post給其他Notification
           NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateHeading"), object: nil, userInfo: ["Heading":GPSHeading!])
 
     }
