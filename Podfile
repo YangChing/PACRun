@@ -8,4 +8,7 @@ target 'PACRun' do
   # Pods for PACRun
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKShareKit'
+  pod 'FBSDKLoginKit'
 end

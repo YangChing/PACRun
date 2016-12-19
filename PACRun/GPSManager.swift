@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreLocation
-import GoogleMaps
+//import GoogleMaps
 
 class GPSManager:NSObject ,CLLocationManagerDelegate {
     
@@ -16,8 +16,6 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
     var GPSCoordinate:CLLocationCoordinate2D?
     var GPSHeading:Double?
     var locationManager = CLLocationManager()
-
-    
     init(GPScoordinate:CLLocationCoordinate2D? = nil , GPSHeading :Double? = nil) {
         super.init()
         self.GPSCoordinate = GPScoordinate
@@ -35,12 +33,11 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
         //設定delegate為自己
         locationManager.delegate = self
         //設定多少距離傳送
-        locationManager.distanceFilter = 50
+        locationManager.distanceFilter = 5
         //開始傳送使用者的方向
         locationManager.startUpdatingHeading()
         //開始傳送使用者的位置
         locationManager.startUpdatingLocation()
-
     }
     //GPS位置改變時會執行
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

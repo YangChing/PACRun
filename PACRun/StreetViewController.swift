@@ -24,6 +24,7 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
     var coordinateValue : CLLocationCoordinate2D? = GPSManager.sharedInstance.GPSCoordinate
     override func viewDidLoad() {
         super.viewDidLoad()
+
         //建立notification來觀測GPS位置
         NotificationCenter.default.addObserver(self, selector: #selector(StreetViewController.didUpdateCoordinate(date:)), name: NSNotification.Name(rawValue: "updateCoordinate"), object: nil)
         //建立notification來觀測heading改變
@@ -33,8 +34,9 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.panoView = GMSPanoramaView(frame: CGRect(x: 0, y: 0, width: self.streetView.bounds.width, height: self.streetView.bounds.height))
+        //super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        self.panoView = GMSPanoramaView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         streetView.addSubview(panoView!)
         panoView?.camera = GMSPanoramaCamera(heading: heading, pitch: -10, zoom: 1)
         panoView?.moveNearCoordinate(coordinateValue!)
@@ -52,11 +54,13 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mapViewController = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        mapViewController.latitude = coordinateValue?.latitude
+        mapViewController.longitude = coordinateValue?.longitude
+
         self.navigationController?.pushViewController(mapViewController, animated: true)
         //self.dismiss(animated: false, completion: nil)
 
     }
-
 
     //  若GPS座標更新就會執行
     func didUpdateCoordinate(date:Notification){

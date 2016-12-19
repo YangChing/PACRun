@@ -12,30 +12,29 @@ import GoogleMaps
 class MapViewController: UIViewController {
 
 
+    @IBOutlet weak var forMapUIVIew: UIView!
     @IBOutlet weak var backToButton: UIButton!
-
-    var camera = GMSCameraPosition.camera(withLatitude: (GPSManager.sharedInstance.GPSCoordinate?.latitude)!,
-                                          longitude:(GPSManager.sharedInstance.GPSCoordinate?.longitude)!, zoom: 16)
+    var latitude:Double?
+    var longitude:Double?
     var mapView : GMSMapView?
     var marker = GMSMarker()
     override func viewDidLoad() {
         super.viewDidLoad()
+        latitude = GPSManager.sharedInstance.GPSCoordinate?.latitude
+        longitude = GPSManager.sharedInstance.GPSCoordinate?.longitude
         NotificationCenter.default.addObserver(self, selector: #selector(StreetViewController.didUpdateCoordinate(date:)), name: NSNotification.Name(rawValue: "updateCoordinate"), object: nil)
-
-         self.mapView = GMSMapView.map(withFrame: .zero, camera: camera)
-
-        self.mapView?.isMyLocationEnabled = true
-        self.view = mapView
-/*
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake((GPSManager.sharedInstance.GPSCoordinate?.latitude)!, (GPSManager.sharedInstance.GPSCoordinate?.longitude)!)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView
-        // Do any additional setup after loading the view.
- */
         self.view.addSubview(backToButton)
     }
+    override func viewWillAppear(_ animated:Bool) {
+        navigationController?.navigationBar.isHidden = true
+        self.mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.forMapUIVIew.frame.height))
+        self.forMapUIVIew.addSubview(mapView!)
+        self.mapView?.camera = GMSCameraPosition.camera(withLatitude: self.latitude!,longitude:self.longitude! , zoom: 16)
+        //顯示自己的位置
+        self.mapView?.isMyLocationEnabled = true
+
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -53,7 +52,6 @@ class MapViewController: UIViewController {
             let sydney = GMSCameraPosition.camera(withLatitude: (dic["GPSCoordinate"]?.latitude)!,
                                                   longitude:(dic["GPSCoordinate"]?.longitude)!, zoom: 16)
             self.mapView?.camera = sydney
-
         }
     }
     // 若Heading方向改變就會執行

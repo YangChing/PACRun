@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class LogInViewController: UIViewController {
 
@@ -14,7 +15,16 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         GPSManager.sharedInstance.locationManager.requestAlwaysAuthorization()
 
-        // Do any additional setup after loading the view.
+        //產生 login 按鈕
+        let loginButton = FBSDKLoginButton()
+        //設定 login 按鈕的位置
+        loginButton.frame = CGRect(x: 36, y: 399, width: 304, height: 55)
+        //設定 loginButton 的 delegate
+        loginButton.delegate = self
+        //設定按鈕的權限
+        loginButton.readPermissions = ["email","public_profile"]
+        //把 login 按鈕加到畫面上
+        view.addSubview(loginButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,7 +36,7 @@ class LogInViewController: UIViewController {
     @IBAction func nextButton(_ sender: Any) {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "StreetViewController") as! StreetViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
         self.navigationController?.pushViewController(controller, animated: true)
         
     }
@@ -42,3 +52,39 @@ class LogInViewController: UIViewController {
     */
 
 }
+extension LogInViewController : FBSDKLoginButtonDelegate {
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil{
+            print("登入失敗")
+            print("*************\(error)")
+            return
+        }
+        //取得使用者的資料
+        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields":"id, name, email"]).start {
+            (connection, results, error) in
+            if error != nil{
+                print("錯誤：\(error)")
+                return
+            }
+
+            if let okResult = results as? [String:String] {
+                //print(okResult["email"] ?? "")
+                //1.拿到 Facebook accessToken
+                let accessToken = FBSDKAccessToken.current()
+                //2.用這個token產生 FIRAuthCredential
+                guard let accessTokenString = accessToken?.tokenString else{ return }
+
+                print("accessTokenString:\(accessTokenString)")
+                // let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
+                //登入FB資料
+
+
+            }
+        }
+        
+    }
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+            print("log out")
+    }
+}
+
