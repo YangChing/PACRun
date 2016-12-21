@@ -1,33 +1,34 @@
 //
-//  MainTabBarController.swift
+//  SelectMapViewController.swift
 //  PACRun
 //
-//  Created by 馮仰靚 on 18/12/2016.
+//  Created by 馮仰靚 on 20/12/2016.
 //  Copyright © 2016 YC. All rights reserved.
 //
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class SelectMapViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        self.navigationItem.title = "設定"
+
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+
+    @IBAction func choiceMapButton(_ sender: Any) {
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        self.navigationController?.pushViewController(controller, animated: true)
 
 
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if item.tag == 0 {
-            navigationController?.navigationBar.isHidden = false
-            self.navigationItem.title = "設定"
-        }else {
-            navigationController?.navigationBar.isHidden = true
-        }
     }
     /*
     // MARK: - Navigation

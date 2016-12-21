@@ -20,13 +20,13 @@ class MapViewController: UIViewController {
     var marker = GMSMarker()
     override func viewDidLoad() {
         super.viewDidLoad()
-        latitude = GPSManager.sharedInstance.GPSCoordinate?.latitude
-        longitude = GPSManager.sharedInstance.GPSCoordinate?.longitude
+        self.latitude = GPSManager.sharedInstance.GPSCoordinate?.latitude
+        self.longitude = GPSManager.sharedInstance.GPSCoordinate?.longitude
         NotificationCenter.default.addObserver(self, selector: #selector(StreetViewController.didUpdateCoordinate(date:)), name: NSNotification.Name(rawValue: "updateCoordinate"), object: nil)
-        self.view.addSubview(backToButton)
+       
     }
     override func viewWillAppear(_ animated:Bool) {
-        navigationController?.navigationBar.isHidden = true
+        //navigationController?.navigationBar.isHidden = true
         self.mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.forMapUIVIew.frame.height))
         self.forMapUIVIew.addSubview(mapView!)
         self.mapView?.camera = GMSCameraPosition.camera(withLatitude: self.latitude!,longitude:self.longitude! , zoom: 16)
@@ -41,10 +41,6 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
-    @IBAction func backToButton(_ sender: Any) {
-         _ = self.navigationController?.popViewController(animated: true)
-    }
 
     func didUpdateCoordinate(date:Notification){
         if let dic = date.userInfo as? [String:CLLocationCoordinate2D]{

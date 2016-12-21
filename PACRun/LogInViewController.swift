@@ -33,13 +33,7 @@ class LogInViewController: UIViewController {
     }
 
 
-    @IBAction func nextButton(_ sender: Any) {
-
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
-        self.navigationController?.pushViewController(controller, animated: true)
-        
-    }
+ 
 
     /*
     // MARK: - Navigation

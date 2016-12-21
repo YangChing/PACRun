@@ -8,16 +8,22 @@
 
 import UIKit
 
+
 class SettingViewController: UIViewController {
 
-
+    //Label
     @IBOutlet weak var distanceAndTimeLabel: UILabel!
-
     @IBOutlet weak var distanceAndTimeSlider: UISlider!
-
+    @IBOutlet weak var distanceAndTimeUnit: UILabel!
 
     @IBOutlet weak var tempoLabel: UILabel!
     @IBOutlet weak var tempoSlider: UISlider!
+
+    //距離跟時間的Button
+    @IBOutlet weak var distanceLabel: UIButton!
+    @IBOutlet weak var timeLabel: UIButton!
+
+    var isTime = false
 
 
 
@@ -25,19 +31,16 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
         distanceAndTimeLabel.text = String(Int(distanceAndTimeSlider.value))
         tempoLabel.text = String(Int(tempoSlider.value))
-        // Do any additional setup after loading the view.
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
 
-        self.title = "設定"
-//        self.navigationController?.navigationBar.tintColor = UIColor.white
+
+
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
     }
-    
+   
 
     @IBAction func distanceAndTimerSelector(_ sender: Any) {
 
@@ -51,14 +54,50 @@ class SettingViewController: UIViewController {
         tempoLabel.text = String(Int(tempoSlider.value))
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func setTimeButton(_ sender: Any) {
+        isTime = true
+        distanceAndTimeUnit.text = "min"
+
+        //distanceLabel.titleLabel?.textColor = UIColor.gray
+        //timeLabel.titleLabel?.textColor = UIColor.white
+
+
+        distanceLabel.setTitleColor(UIColor.gray, for: .normal)
+        timeLabel.setTitleColor(UIColor.white, for: .normal)
+
+        distanceAndTimeSlider.minimumValue = 10
+        distanceAndTimeSlider.maximumValue = 300
+        distanceAndTimeSlider.value = 155
+        distanceAndTimeLabel.text  = "155"
+
+
     }
-    */
+
+
+    @IBAction func setDistanceButton(_ sender: Any) {
+
+        isTime = false
+        distanceAndTimeUnit.text = "km"
+        //timeLabel.titleLabel?.textColor = UIColor.gray
+       //distanceLabel.titleLabel?.textColor = UIColor.white
+        distanceLabel.setTitleColor(UIColor.white, for: .normal)
+         timeLabel.setTitleColor(UIColor.gray, for: .normal)
+        distanceAndTimeSlider.minimumValue = 0
+        distanceAndTimeSlider.maximumValue = 10
+        distanceAndTimeSlider.value = 5
+
+        distanceAndTimeLabel.text  = "5"
+    }
+
+
+    @IBAction func startButton(_ sender: Any) {
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "StopViewController") as! StopViewController
+        controller.start()
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+    }
 
 }

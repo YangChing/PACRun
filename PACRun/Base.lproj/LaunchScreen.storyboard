@@ -21,12 +21,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="登入頁" translatesAutoresizingMaskIntoConstraints="NO" id="7Sz-WW-M8j">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="登入頁" translatesAutoresizingMaskIntoConstraints="NO" id="7Sz-WW-M8j">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7Sz-WW-M8j" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="4w9-z5-Iqn"/>
+                            <constraint firstAttribute="trailing" secondItem="7Sz-WW-M8j" secondAttribute="trailing" id="7fK-cg-iNO"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="7Sz-WW-M8j" secondAttribute="bottom" id="enA-4S-1qW"/>
+                            <constraint firstItem="7Sz-WW-M8j" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="f8a-d4-CJc"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -11,16 +11,13 @@ import CoreLocation
 //import GoogleMaps
 
 class GPSManager:NSObject ,CLLocationManagerDelegate {
-    
     static let sharedInstance = GPSManager()
+    
     var GPSCoordinate:CLLocationCoordinate2D?
     var GPSHeading:Double?
     var locationManager = CLLocationManager()
-    init(GPScoordinate:CLLocationCoordinate2D? = nil , GPSHeading :Double? = nil) {
+    override init() {
         super.init()
-        self.GPSCoordinate = GPScoordinate
-        self.GPSHeading = GPSHeading
-
         //let motionManager = CMMotionManager()
         //设置定位进度
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -38,6 +35,9 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
         locationManager.startUpdatingHeading()
         //開始傳送使用者的位置
         locationManager.startUpdatingLocation()
+
+        self.GPSCoordinate = locationManager.location?.coordinate
+        self.GPSHeading = locationManager.heading?.trueHeading
     }
     //GPS位置改變時會執行
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

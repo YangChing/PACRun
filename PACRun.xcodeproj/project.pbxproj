@@ -23,6 +23,9 @@
 		64FE7CCC1E068D9D00660581 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FE7CCB1E068D9D00660581 /* SettingViewController.swift */; };
 		64FE7CD01E06982A00660581 /* StopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FE7CCF1E06982A00660581 /* StopViewController.swift */; };
 		64FE7CF51E07F69900660581 /* FinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FE7CF41E07F69900660581 /* FinishViewController.swift */; };
+		64FE7CF71E08E26100660581 /* PofileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FE7CF61E08E26100660581 /* PofileManager.swift */; };
+		64FE7CF91E08E43D00660581 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FE7CF81E08E43D00660581 /* SelectMapViewController.swift */; };
+		64FE7CFB1E08FC0E00660581 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FE7CFA1E08FC0E00660581 /* StopWatch.swift */; };
 		DFADF8ACE011F7EA592CCE8C /* Pods_PACRun.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43B3C48A48B72ECBB7E495 /* Pods_PACRun.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +50,9 @@
 		64FE7CCB1E068D9D00660581 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingViewController.swift; path = PACRun/SettingViewController.swift; sourceTree = "<group>"; };
 		64FE7CCF1E06982A00660581 /* StopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopViewController.swift; sourceTree = "<group>"; };
 		64FE7CF41E07F69900660581 /* FinishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishViewController.swift; sourceTree = "<group>"; };
+		64FE7CF61E08E26100660581 /* PofileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PofileManager.swift; sourceTree = "<group>"; };
+		64FE7CF81E08E43D00660581 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
+		64FE7CFA1E08FC0E00660581 /* StopWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
 		B209CD80D04137B57E564A93 /* Pods-PACRun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PACRun.release.xcconfig"; path = "Pods/Target Support Files/Pods-PACRun/Pods-PACRun.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,8 +95,11 @@
 				64FAC6F61DFAA5FE009C5760 /* AppDelegate.swift */,
 				64FAC6FA1DFAA5FE009C5760 /* Main.storyboard */,
 				64FE7CC91E0689B400660581 /* MainNavigationController.swift */,
+				64FE7CF81E08E43D00660581 /* SelectMapViewController.swift */,
 				64D67CDE1E03E6B300EDC4D5 /* LogInViewController.swift */,
 				64D67CB91E02B9E000EDC4D5 /* GPSManager.swift */,
+				64FE7CF61E08E26100660581 /* PofileManager.swift */,
+				64FE7CFA1E08FC0E00660581 /* StopWatch.swift */,
 				64FAC7001DFAA5FE009C5760 /* Assets.xcassets */,
 				64FAC7021DFAA5FE009C5760 /* LaunchScreen.storyboard */,
 				64FAC7051DFAA5FE009C5760 /* Info.plist */,
@@ -264,13 +273,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				64FAC6F91DFAA5FE009C5760 /* StreetViewController.swift in Sources */,
+				64FE7CFB1E08FC0E00660581 /* StopWatch.swift in Sources */,
 				64D67CE11E05107800EDC4D5 /* MapViewController.swift in Sources */,
 				64FE7CCA1E0689B400660581 /* MainNavigationController.swift in Sources */,
 				64FAC6F71DFAA5FE009C5760 /* AppDelegate.swift in Sources */,
 				64FE7CC81E06784A00660581 /* MainTabBarController.swift in Sources */,
+				64FE7CF91E08E43D00660581 /* SelectMapViewController.swift in Sources */,
 				64FE7CCC1E068D9D00660581 /* SettingViewController.swift in Sources */,
 				64FE7CD01E06982A00660581 /* StopViewController.swift in Sources */,
 				64D67CBA1E02B9E000EDC4D5 /* GPSManager.swift in Sources */,
+				64FE7CF71E08E26100660581 /* PofileManager.swift in Sources */,
 				64D67CDF1E03E6B300EDC4D5 /* LogInViewController.swift in Sources */,
 				64FAC6FF1DFAA5FE009C5760 /* PACRun.xcdatamodeld in Sources */,
 				64FE7CF51E07F69900660581 /* FinishViewController.swift in Sources */,
