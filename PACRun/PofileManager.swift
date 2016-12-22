@@ -7,10 +7,19 @@
 //
 
 import Foundation
+import CoreLocation
 
 class ProfileManager{
     var name : String?
     var account : String?
     var tempo : Int?
     var kilometer : Int?
+
+    var image : URL?
+}
+class RunRecordManager{
+    var startLocation : CLLocationCoordinate2D?
+    var endLocation : CLLocationCoordinate2D?
+    var runMap: Int?
+    var allCoordinate : [CLLocationCoordinate2D]?
 }

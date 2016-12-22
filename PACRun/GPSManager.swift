@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+
 //import GoogleMaps
 
 class GPSManager:NSObject ,CLLocationManagerDelegate {
@@ -16,6 +17,14 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
     var GPSCoordinate:CLLocationCoordinate2D?
     var GPSHeading:Double?
     var locationManager = CLLocationManager()
+    var speed : CLLocationSpeed?
+
+
+    var startLocation:CLLocation!
+    var lastLocation: CLLocation!
+    var oldlastLocation: CLLocation!
+    var traveledDistance:Double = 0
+    var isRecord = false
     override init() {
         super.init()
         //let motionManager = CMMotionManager()
@@ -38,6 +47,7 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
 
         self.GPSCoordinate = locationManager.location?.coordinate
         self.GPSHeading = locationManager.heading?.trueHeading
+
     }
     //GPS位置改變時會執行
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -45,6 +55,26 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
         self.GPSCoordinate = location?.coordinate
         //GPS位置改變，post給其他Notification
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCoordinate"), object: nil, userInfo: ["GPSCoordinate":GPSCoordinate!])
+
+        if isRecord == true {
+            if startLocation == nil {
+                startLocation = locations.first
+                oldlastLocation = locations.first
+            } else {
+                if let lastLocation = locations.last {
+                    let distance = startLocation.distance(from: lastLocation)
+                    let lastDistance = oldlastLocation.distance(from: lastLocation)
+                    traveledDistance += lastDistance
+                    print( "start\(startLocation)")
+                    print( "last\(lastLocation)")
+                    print("FULL DISTANCE: \(traveledDistance)")
+                    print("STRAIGHT DISTANCE: \(distance)")
+
+                }
+            }
+            oldlastLocation = locations.last
+        }
+
     }
     //Heading方向改變時會執行
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {

@@ -96,6 +96,7 @@ class SettingViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "StopViewController") as! StopViewController
         controller.start()
+        GPSManager.sharedInstance.isRecord = true
         self.navigationController?.pushViewController(controller, animated: true)
         
     }

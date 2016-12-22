@@ -14,7 +14,7 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
 
     @IBOutlet weak var streetView: UIView!
 
-
+   
 
     //Google map
     var panoView : GMSPanoramaView?
