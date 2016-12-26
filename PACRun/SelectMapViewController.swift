@@ -12,7 +12,10 @@ class SelectMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let connector = ConnectorAPI()
+       connector.getCoordinate()
+        let playTempo = TempoManager()
+        playTempo.playSound()
         // Do any additional setup after loading the view.
     }
 

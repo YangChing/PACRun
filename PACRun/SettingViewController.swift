@@ -97,6 +97,7 @@ class SettingViewController: UIViewController {
         let controller = storyboard.instantiateViewController(withIdentifier: "StopViewController") as! StopViewController
         controller.start()
         GPSManager.sharedInstance.isRecord = true
+        controller.objectDistance = Int(distanceAndTimeLabel.text!)
         self.navigationController?.pushViewController(controller, animated: true)
         
     }

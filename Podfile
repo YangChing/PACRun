@@ -11,4 +11,5 @@ target 'PACRun' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKShareKit'
   pod 'FBSDKLoginKit'
+  pod 'Alamofire'
 end

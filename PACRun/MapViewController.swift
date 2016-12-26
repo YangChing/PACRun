@@ -26,11 +26,12 @@ class MapViewController: UIViewController {
        
     }
     override func viewWillAppear(_ animated:Bool) {
-        //navigationController?.navigationBar.isHidden = true
+        //設定地圖的frame
         self.mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.forMapUIVIew.frame.height))
         self.forMapUIVIew.addSubview(mapView!)
+        //設定camera的位置
         self.mapView?.camera = GMSCameraPosition.camera(withLatitude: self.latitude!,longitude:self.longitude! , zoom: 16)
-        //顯示自己的位置
+        //是否顯示自己的位置
         self.mapView?.isMyLocationEnabled = true
 
     }
@@ -44,10 +45,13 @@ class MapViewController: UIViewController {
 
     func didUpdateCoordinate(date:Notification){
         if let dic = date.userInfo as? [String:CLLocationCoordinate2D]{
-
+            //重新設定google camera的位置
             let sydney = GMSCameraPosition.camera(withLatitude: (dic["GPSCoordinate"]?.latitude)!,
                                                   longitude:(dic["GPSCoordinate"]?.longitude)!, zoom: 16)
             self.mapView?.camera = sydney
+            //更新
+            self.latitude = (dic["GPSCoordinate"]?.latitude)!
+            self.longitude = (dic["GPSCoordinate"]?.longitude)!
         }
     }
     // 若Heading方向改變就會執行

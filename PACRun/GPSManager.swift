@@ -24,7 +24,10 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
     var lastLocation: CLLocation!
     var oldlastLocation: CLLocation!
     var traveledDistance:Double = 0
+    //設定是否開始記錄
     var isRecord = false
+    //是否點pause
+    var isPause = false
     override init() {
         super.init()
         //let motionManager = CMMotionManager()
@@ -39,7 +42,7 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
         //設定delegate為自己
         locationManager.delegate = self
         //設定多少距離傳送
-        locationManager.distanceFilter = 5
+
         //開始傳送使用者的方向
         locationManager.startUpdatingHeading()
         //開始傳送使用者的位置
@@ -51,28 +54,33 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
     }
     //GPS位置改變時會執行
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationManager.distanceFilter = 10
         let location = locations.first
         self.GPSCoordinate = location?.coordinate
         //GPS位置改變，post給其他Notification
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCoordinate"), object: nil, userInfo: ["GPSCoordinate":GPSCoordinate!])
 
+        //判斷是否要開始記錄
         if isRecord == true {
+            //第一次紀錄會給第一個位置
             if startLocation == nil {
                 startLocation = locations.first
                 oldlastLocation = locations.first
+            //第二次後會進來此迴圈
             } else {
-                if let lastLocation = locations.last {
-                    let distance = startLocation.distance(from: lastLocation)
+                
+                if let lastLocation = locations.first {
                     let lastDistance = oldlastLocation.distance(from: lastLocation)
-                    traveledDistance += lastDistance
-                    print( "start\(startLocation)")
-                    print( "last\(lastLocation)")
-                    print("FULL DISTANCE: \(traveledDistance)")
-                    print("STRAIGHT DISTANCE: \(distance)")
-
+                    if lastDistance < 20 && lastDistance > 10{
+                        if isPause == false {
+                            traveledDistance += lastDistance
+                        }
+                        print("tra:\(traveledDistance)")
+                    }
                 }
+                oldlastLocation = locations.first
             }
-            oldlastLocation = locations.last
+
         }
 
     }
