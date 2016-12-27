@@ -12,6 +12,8 @@
 		6468420D1E10C71C00C6ACC4 /* TempoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6468420C1E10C71C00C6ACC4 /* TempoManager.swift */; };
 		6468420F1E10C9D700C6ACC4 /* TempoOne.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6468420E1E10C9D700C6ACC4 /* TempoOne.aif */; };
 		646842111E10D4B500C6ACC4 /* GPSTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646842101E10D4B500C6ACC4 /* GPSTransformation.swift */; };
+		646842131E1232A800C6ACC4 /* TempoTwo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 646842121E1232A800C6ACC4 /* TempoTwo.mp3 */; };
+		64BD450F1E1250070053E774 /* DrawRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD450E1E1250070053E774 /* DrawRoute.swift */; };
 		64D67CBA1E02B9E000EDC4D5 /* GPSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D67CB91E02B9E000EDC4D5 /* GPSManager.swift */; };
 		64D67CDF1E03E6B300EDC4D5 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D67CDE1E03E6B300EDC4D5 /* LogInViewController.swift */; };
 		64D67CE11E05107800EDC4D5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D67CE01E05107800EDC4D5 /* MapViewController.swift */; };
@@ -40,6 +42,8 @@
 		6468420C1E10C71C00C6ACC4 /* TempoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoManager.swift; sourceTree = "<group>"; };
 		6468420E1E10C9D700C6ACC4 /* TempoOne.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = TempoOne.aif; sourceTree = "<group>"; };
 		646842101E10D4B500C6ACC4 /* GPSTransformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSTransformation.swift; sourceTree = "<group>"; };
+		646842121E1232A800C6ACC4 /* TempoTwo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TempoTwo.mp3; sourceTree = "<group>"; };
+		64BD450E1E1250070053E774 /* DrawRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawRoute.swift; sourceTree = "<group>"; };
 		64D67CB91E02B9E000EDC4D5 /* GPSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSManager.swift; sourceTree = "<group>"; };
 		64D67CDE1E03E6B300EDC4D5 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		64D67CE01E05107800EDC4D5 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = PACRun/MapViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +116,9 @@
 				646841E91E0FBC6F00C6ACC4 /* ConnectorAPI.swift */,
 				6468420C1E10C71C00C6ACC4 /* TempoManager.swift */,
 				6468420E1E10C9D700C6ACC4 /* TempoOne.aif */,
+				646842121E1232A800C6ACC4 /* TempoTwo.mp3 */,
 				646842101E10D4B500C6ACC4 /* GPSTransformation.swift */,
+				64BD450E1E1250070053E774 /* DrawRoute.swift */,
 			);
 			path = PACRun;
 			sourceTree = "<group>";
@@ -121,9 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				64FE7CC71E06784A00660581 /* MainTabBarController.swift */,
-				64FE7CF41E07F69900660581 /* FinishViewController.swift */,
 				64FE7CCB1E068D9D00660581 /* SettingViewController.swift */,
 				64FE7CCF1E06982A00660581 /* StopViewController.swift */,
+				64FE7CF41E07F69900660581 /* FinishViewController.swift */,
 				64FAC6F81DFAA5FE009C5760 /* StreetViewController.swift */,
 				64D67CE01E05107800EDC4D5 /* MapViewController.swift */,
 			);
@@ -222,6 +228,7 @@
 			files = (
 				64FAC7041DFAA5FE009C5760 /* LaunchScreen.storyboard in Resources */,
 				6468420F1E10C9D700C6ACC4 /* TempoOne.aif in Resources */,
+				646842131E1232A800C6ACC4 /* TempoTwo.mp3 in Resources */,
 				64FAC7011DFAA5FE009C5760 /* Assets.xcassets in Resources */,
 				64FAC6FC1DFAA5FE009C5760 /* Main.storyboard in Resources */,
 			);
@@ -296,6 +303,7 @@
 				64FE7CF71E08E26100660581 /* PofileManager.swift in Sources */,
 				64D67CDF1E03E6B300EDC4D5 /* LogInViewController.swift in Sources */,
 				64FAC6FF1DFAA5FE009C5760 /* PACRun.xcdatamodeld in Sources */,
+				64BD450F1E1250070053E774 /* DrawRoute.swift in Sources */,
 				646841EA1E0FBC6F00C6ACC4 /* ConnectorAPI.swift in Sources */,
 				64FE7CF51E07F69900660581 /* FinishViewController.swift in Sources */,
 			);
@@ -426,6 +434,20 @@
 				DEVELOPMENT_TEAM = 8H7X36TF25;
 				INFOPLIST_FILE = PACRun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FBSDKShareKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.YC.PACRun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -440,6 +462,20 @@
 				DEVELOPMENT_TEAM = 8H7X36TF25;
 				INFOPLIST_FILE = PACRun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FBSDKShareKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.YC.PACRun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

@@ -20,12 +20,6 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var tempoSlider: UISlider!
 
     //距離跟時間的Button
-    @IBOutlet weak var distanceLabel: UIButton!
-    @IBOutlet weak var timeLabel: UIButton!
-
-    var isTime = false
-
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +29,9 @@ class SettingViewController: UIViewController {
 
 
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        player?.stop()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
@@ -55,49 +51,19 @@ class SettingViewController: UIViewController {
     }
 
 
-    @IBAction func setTimeButton(_ sender: Any) {
-        isTime = true
-        distanceAndTimeUnit.text = "min"
-
-        //distanceLabel.titleLabel?.textColor = UIColor.gray
-        //timeLabel.titleLabel?.textColor = UIColor.white
-
-
-        distanceLabel.setTitleColor(UIColor.gray, for: .normal)
-        timeLabel.setTitleColor(UIColor.white, for: .normal)
-
-        distanceAndTimeSlider.minimumValue = 10
-        distanceAndTimeSlider.maximumValue = 300
-        distanceAndTimeSlider.value = 155
-        distanceAndTimeLabel.text  = "155"
-
-
-    }
-
-
-    @IBAction func setDistanceButton(_ sender: Any) {
-
-        isTime = false
-        distanceAndTimeUnit.text = "km"
-        //timeLabel.titleLabel?.textColor = UIColor.gray
-       //distanceLabel.titleLabel?.textColor = UIColor.white
-        distanceLabel.setTitleColor(UIColor.white, for: .normal)
-         timeLabel.setTitleColor(UIColor.gray, for: .normal)
-        distanceAndTimeSlider.minimumValue = 0
-        distanceAndTimeSlider.maximumValue = 10
-        distanceAndTimeSlider.value = 5
-
-        distanceAndTimeLabel.text  = "5"
-    }
-
 
     @IBAction func startButton(_ sender: Any) {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "StopViewController") as! StopViewController
+        //開始計時
         controller.start()
+        //設定開始記錄
         GPSManager.sharedInstance.isRecord = true
+        //設定目標距離跟tempo
         controller.objectDistance = Int(distanceAndTimeLabel.text!)
+        controller.tempoSpeed = Int(tempoLabel.text!)
+        //切換頁面
         self.navigationController?.pushViewController(controller, animated: true)
         
     }

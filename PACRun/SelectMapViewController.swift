@@ -12,10 +12,8 @@ class SelectMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let connector = ConnectorAPI()
-       connector.getCoordinate()
-        let playTempo = TempoManager()
-        playTempo.playSound()
+       
+      
         // Do any additional setup after loading the view.
     }
 
@@ -24,11 +22,13 @@ class SelectMapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        player?.stop()
+    }
     @IBAction func choiceMapButton(_ sender: Any) {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        let controller = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
         self.navigationController?.pushViewController(controller, animated: true)
 
 

@@ -27,10 +27,7 @@ class ConnectorAPI{
     }
     func getMarathons(id:Int){
         Alamofire.request("https://i-running.ga/api/marathons/\(id)").responseJSON { response in
-            print(response.request)  // original URL request
-            print(response.response) // HTTP URL response
-            print(response.data)     // server data
-            print(response.result)   // result of response serialization
+
 
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
@@ -41,15 +38,14 @@ class ConnectorAPI{
     func postMarathons(parameters:Parameters){
         Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: JSONEncoding.default)
     }
-    func getCoordinate(){
-        Alamofire.request("https://i-running.ga/api/coordinates/1342").responseJSON { response in
-            print(response.request)  // original URL request
-            print(response.response) // HTTP URL response
-            print(response.data)     // server data
-            print(response.result)   // result of response serialization
+    func getCoordinate(id:Int){
+        Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(id)").responseJSON { response in
+
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
+
             }
+
         }
     }
 

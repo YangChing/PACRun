@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 
+
 //import GoogleMaps
 
 class GPSManager:NSObject ,CLLocationManagerDelegate {
@@ -75,7 +76,7 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
                         if isPause == false {
                             traveledDistance += lastDistance
                         }
-                        print("tra:\(traveledDistance)")
+                        //print("tra:\(traveledDistance)")
                     }
                 }
                 oldlastLocation = locations.first
@@ -92,4 +93,3 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
 
     }
 }
-

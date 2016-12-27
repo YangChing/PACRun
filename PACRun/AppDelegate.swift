@@ -11,6 +11,8 @@ import CoreData
 import GoogleMaps
 import FBSDKCoreKit
 
+var userDefault = UserDefaults.standard
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

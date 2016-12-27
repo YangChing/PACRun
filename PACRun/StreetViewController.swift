@@ -14,8 +14,6 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
 
     @IBOutlet weak var streetView: UIView!
 
-   
-
     //Google map
     var panoView : GMSPanoramaView?
     //用來儲存heading方線的變數：單位是“度” 0~360
@@ -44,13 +42,10 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
         }
 
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 
     //  若GPS座標更新就會執行
     func didUpdateCoordinate(date:Notification){

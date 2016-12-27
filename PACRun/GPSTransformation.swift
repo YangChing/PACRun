@@ -6,11 +6,4 @@
 //  Copyright © 2016 YC. All rights reserved.
 //
 
-import Foundation
 
-class GPSTransformation{
-
-    
-
-
-}

@@ -13,8 +13,12 @@ import AVFoundation
 var player: AVAudioPlayer?
 
 class TempoManager{
+
+
+    var setRate : Float? = 1
+
     func playSound() {
-        let url = Bundle.main.url(forResource: "TempoOne", withExtension: "aif")!
+        let url = Bundle.main.url(forResource: "TempoTwo", withExtension: "mp3")!
         do {
             player = try AVAudioPlayer(contentsOf: url)
             guard let player = player else { return }
@@ -22,7 +26,7 @@ class TempoManager{
 
             player.prepareToPlay()
             player.enableRate = true
-            player.rate = 1.5
+            player.rate = self.setRate!
             player.play()
         } catch let error {
             print(error.localizedDescription)
