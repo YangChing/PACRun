@@ -23,7 +23,7 @@ class DrawRoute{
             switch response.result {
             case .success(let data):
                 let json = JSON(data)
-                print(json)
+                //print(json)
                 let errornum = json["error"]
                 if (errornum == true){
                 }else{
@@ -31,7 +31,7 @@ class DrawRoute{
 
                     if routes != nil{
                         let overViewPolyLine = routes![0]["overview_polyline"]["points"].string
-                        print("ooooo:\(overViewPolyLine)")
+                        //print("ooooo:\(overViewPolyLine)")
                         if overViewPolyLine != nil{
                             self.addPolyLineWithEncodedStringInMap(encodedString: overViewPolyLine!)
                         }
