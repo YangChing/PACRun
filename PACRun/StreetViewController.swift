@@ -17,7 +17,7 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
     //Google map
     var panoView : GMSPanoramaView?
     //用來儲存heading方線的變數：單位是“度” 0~360
-    var heading : Double = 0
+    var heading : Double?
     //用來儲存座標的變數
     var coordinateValue : CLLocationCoordinate2D?
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
         //navigationController?.navigationBar.isHidden = true
         self.panoView = GMSPanoramaView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         streetView.addSubview(panoView!)
-        panoView?.camera = GMSPanoramaCamera(heading: heading, pitch: -10, zoom: 1)
+        panoView?.camera = GMSPanoramaCamera(heading: heading!, pitch: -10, zoom: 1)
         if let coordinate = coordinateValue {
         panoView?.moveNearCoordinate(coordinate)
         }
@@ -58,7 +58,7 @@ class StreetViewController: UIViewController ,GMSMapViewDelegate  {
     func didUpdateHeading(date:Notification){
         if let dic = date.userInfo as? [String:Double]{
             self.heading = dic["Heading"]!
-            panoView?.camera = GMSPanoramaCamera(heading: self.heading, pitch: -10, zoom: 1)
+            panoView?.camera = GMSPanoramaCamera(heading: self.heading!, pitch: -10, zoom: 1)
         }
     }
 

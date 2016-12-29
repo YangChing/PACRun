@@ -38,7 +38,7 @@ class VirtualStreetViewController: UIViewController {
         self.panoView = GMSPanoramaView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         self.view.addSubview(panoView!)
         panoView?.camera = GMSPanoramaCamera(heading: heading, pitch: -10, zoom: 1)
-        if let coordinate = coordinateValue {
+        if let coordinate = myPoint {
             panoView?.moveNearCoordinate(coordinate)
         }
     }
@@ -60,9 +60,10 @@ class VirtualStreetViewController: UIViewController {
                     print("JSON: \(json)")
                     let virLatitude = json["coordinate"]["latitude"].stringValue
                     let virLongitude = json["coordinate"]["longitude"].stringValue
-
+                    let heading =  json["coordinate"]["heading"].stringValue
                     self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
                     self.coordinateValue = self.myPoint
+                    self.panoView?.camera = GMSPanoramaCamera(heading: Double(heading)!, pitch: -10, zoom: 1)
                     self.panoView?.moveNearCoordinate(self.coordinateValue!)
 
                 case .failure:

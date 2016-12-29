@@ -96,14 +96,44 @@ class VirtualMapViewController: UIViewController {
         self.mapView?.isMyLocationEnabled = true
 
         //繪製路徑
+        /*
         let draw = DrawRoute()
         draw.mapView = self.mapView
         for i in 0...25 {
             draw.addOverlayToMapView(originLat: waypoint[i]["lat"]!, originLon: waypoint[i]["lng"]!, destinationLat: waypoint[i+1]["lat"]!, destinationLon: waypoint[i+1]["lng"]!)
+        }*/
+        let route = ["cqurEk|czXjGsA`BYJGfB_@HKzA}CtAwCHi@j@wMX}GHmB\\kC`@}CBwD@yPBoA`@?",
+                     "_vtrE}jfzX\\?^OTB~ARv@LnC^XH@CdC^`ALdAPlEn@bDd@BDJBrAh@f@Vh@Rl@Zz@\\Pb@f@DFEDEBBHFnCh@BBPBfCj@rB`@BBNBhDt@HHNBDCp@RdDr@NHHAtA^BD^DdDv@BDR?r@NjAXxGxALBDF@A@BHLP?H??U?W",
+                     "ouqrEsnezX?l@b@A@A?F@GIB?x@A~@FtA@PGdK?|JHHC\\E\\D`EWjGAj@?tE@p@NRLPEt@[JMFEd@OvB?RWlD@BARCFMdBM|A@BNZ?REv@ONGD?HG`EKrIEfEN\\BBCn@?LSRAj@EpCGtEGpFMfHBXCv@?HB??DS??P?h@K??z@AzAErICvL?`BS?",
+                     "o|qrEs|_zXaB??e@G?B??Hk@A_A?qF?kB@mA?OC?B_C@UCKBaC?IMO?ILy@?aA?KEIAKFgCA?CK??DCAu@AuA?}A?Y?AKs@A_@AGLW@sA?CGO?AFgCCGEK?ADqCCGGK?EFkCGIEM?CD_CCCMS?KJyBEKEK?GBeCCwCCq@C_AAICc@@uACgCEKEm@?IBq@AwACyCGcDECEM?IF}BK[AgCCKGQ?OBkBCYCCBsBEQC_CASCGB_A?eAACEK?AD}CEwC??OF??H?RI??La@?",
+                     "a{vrEo``zX?k@@c@F@JoALwADo@Fi@E?JwAHcAH}AJeFLsBHcAMAMC@IB@D@JkAOWLe@LEhCeKFWzAmCd@u@b@mADkFEYKE?i@LGDMJsH\\qFZuGECJsBDA@W@a@?[@}AFWDy@w@sCIYQe@wAeEa@}Ao@qBsAyDOQEO{AyE_BeFgAmDCI",
+                     "s}vrEixdzXhAtDtDfLLh@NPFPtA|DfAxDlBrF|@dDMpA?dBAf@C^CDC@GrBBBCr@UlEc@lHGjGELMF?h@JDDPChFG\\a@`Aa@l@wAhCCFYhAwBnIMDMd@}BmAKR]hB_BnHDRSX]?a@NMV_@zCUbCAZYfGD`@a@AID?l@",
+                     "agwrEy``zX?\\@Bn@@DCpCN\\@zAHFFLTDD`@ERWB?|C@lDBfA?bAADDRExBBVBtBBRBvB@JDT@HCd@@bBBV?~BDHBL?BCpCJT?|BFxCFPBl@?JCv@BlA@vABl@DrBAhEFnABHBTCxBBLPR?@O|BDDDRCpCBFDJ@DEnCBDFJ?DEdCB@DR@?G|@Bz@Br@AV?DCd@?zA?dB@hE?fCEFNRAHI~B?T?|C?fD?~C@|C@JAtA??HtA?",
+                     "g_rrEq{{yXESUNeDh@iEl@s@Bo@CgBUgB[{Cu@eG{AqAc@sGmC",
+                     "g_rrEq{{yXESlA[I_@CMGCe@qDSmB[oDYmCAg@IQQwBOeB@YAWMOQ{B]qC?GFICgB?IDaADgBFQTU?k@CEQ[TiFDO@UCIL{DJ_D`@kHBq@TcEDMD{@ZsCJ}@f@yE@IXHDc@HEEWOq@Da@Fg@NAB_@FqBBaG@c@",
+                     "g{qrEcz_zXJKFI^@J?N?fA?jB?dB?Z^zAC?JVT`B|A~DzDn@D^j@~ADzEJpCDtBFhA?zCAxBAd@ELD~@?dAA~GAX?RK@DMH?HI??FP??P",
+                     "srorEml_zX?QQ??GH??ILIAEDEh@yF~@gJCYFuAPQH{@K_BKO?UDQYkDCk@?kA`@oDGIBASc@?Qz@H",
+                     "imorEk|`zX{@I?PRb@C@FHa@nD?jABj@XjDEP?TJNJ~AIz@QPGtABXYnCe@vEi@xFYP?jABF?JCn@{@~BkCpHYz@sAtAmExEWt@SdAmC~Ji@pB",
+                     "kjprEy|}yXLe@n@@HLpFMVAHDtBAbEE|A@NA~FGBGZ@FDfA?@CJ?~A@jA?|AA~BF?d@FFH?fB?vE@@BR@",
+                     "wnnrEo|}yXTC?o@G?BwE?I@iE@cCDmNDyCBuD",
+                     "omsrEsd|yXtHzCn@TnD|@fCp@nDt@hC\\n@Br@CnJwATODR",
+                     "yjirEu}}yXXtAr@nGzBpTvFtl@j@vFF|BL?",
+                     "qmnrEqi_zXxDd@T@vDb@RBxALPSfCVjD\\bCV~BTrBRnDl@pHtAzJlBJULB`C`@tAXlEz@THh@HjEz@fDl@VFHCl@J@HlAVvAVL\\vB`@lDdArCt@bBh@pD|@xDhA`Cl@~Bl@|@TdBZfANlCf@fGz@vDl@",
+                     "g{qrEcz_zXCbFClAE~AALAVO@MhAThAID?JEVYIQxAW~BIz@CNYnC?NKx@W~EYrFUhFMjD?RBHGd@UhFLTFJ?j@GFMLGPGvBCv@@P@xAGHHr@VxBLfBLN?p@TfCJtAHP@f@TrBFt@ZpDr@zF@DFBFXDRmAZDR",
+                     "uzhrEqc{yXT@dC`A`K~DxHzChAd@fABpFPlIRPSh@@bPb@|@Bj@@JOFG@MDBCb@P@",
+                     "efjrEkqryXu@eFGm@Y{@Dc@[eAi@kBYGa@oAa@_AWUq@w@_@}@gCyI",
+                     "qujrEovsyXge@pFwGt@UO[B{BVQHIHAB",
+                     "iqfrEkrzyXCl@CJAZ]bGQjCEn@D?G`@[|FStDAb@SdDQvCDTAf@KPEr@UZgAjSa@|HWrHm@xK_@vBw@hDiDzPwE~TeBpIKz@Gv@?pA?nA?fL?zAAtDqHpB?vHC`@AvH@fEoLjDGLe@LEXx@rCeAL@\\_@JKGm@R{@LeA`@}A`@EDw@VBHYFQI]LGV]HYH{@Hs@H_EjAkBh@IEIWUF@BCNM@ERGBDRIBwIdC_Cn@EBEUUDOGUJJVwErASN_@`@_B`@e@b@S^SiA",
+                     "}jlrEclsyXAh@TfCTHp@rH\\zBnCzY^xEK@",
+                     "cblrE}vqyXeEb@gCZa@LMJCb@UXu@nAgBlDcBdDoChFWt@In@?v@RtCRNBV",
+                     "c{lrE{rpyXB\\IXr@xG`@dD\\xDfEvAGZJT}ChDHTJhABbBx@dJNLHZ",
+                     "yrlrEaaoyXI[pI_JVe@"]
+        for i in 0...25 {
+            addPolyLineWithEncodedStringInMap(encodedString: route[i])
         }
-        
+
         mylocation = GMSMarker(position: myPoint!)
-        mylocation?.icon = UIImage(named: "Goal_point")
+        mylocation?.icon = UIImage(named: "New_location")
         mylocation?.map = mapView;
 
     }
@@ -127,10 +157,11 @@ class VirtualMapViewController: UIViewController {
                     let virLatitude = json["coordinate"]["latitude"].stringValue
                     let virLongitude = json["coordinate"]["longitude"].stringValue
                     self.mylocation?.map = nil
+                    self.mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
                     print("virLongitude:\(virLongitude)")
                     self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
                     self.mylocation = GMSMarker(position: self.myPoint!)
-                    self.mylocation?.icon = UIImage(named: "Goal_point")
+                    self.mylocation?.icon = UIImage(named: "New_location")
                     self.mylocation?.map = self.mapView
                 case .failure:
                     print("error")
@@ -149,5 +180,11 @@ class VirtualMapViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    func addPolyLineWithEncodedStringInMap(encodedString: String) {
+        let path = GMSMutablePath(fromEncodedPath: encodedString)
+        let polyLine = GMSPolyline(path: path)
+        polyLine.strokeWidth = 4
+        polyLine.strokeColor = UIColor.blue
+        polyLine.map = mapView
+    }
 }

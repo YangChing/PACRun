@@ -31,7 +31,7 @@ class DrawRoute{
 
                     if routes != nil{
                         let overViewPolyLine = routes![0]["overview_polyline"]["points"].string
-                        //print("ooooo:\(overViewPolyLine)")
+                        print("ooooo:\(overViewPolyLine)")
                         if overViewPolyLine != nil{
                             self.addPolyLineWithEncodedStringInMap(encodedString: overViewPolyLine!)
                         }
