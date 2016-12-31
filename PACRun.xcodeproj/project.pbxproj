@@ -19,6 +19,9 @@
 		64BD450F1E1250070053E774 /* DrawRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD450E1E1250070053E774 /* DrawRoute.swift */; };
 		64BD45111E13671B0053E774 /* VirtualStreetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD45101E13671B0053E774 /* VirtualStreetViewController.swift */; };
 		64BD45131E1367490053E774 /* VirtualMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD45121E1367490053E774 /* VirtualMapViewController.swift */; };
+		64C547641E16AB7D00B2FB76 /* RecordLocation.txt in Resources */ = {isa = PBXBuildFile; fileRef = 64C547631E16AB7D00B2FB76 /* RecordLocation.txt */; };
+		64C547661E1759F300B2FB76 /* FinishStreetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C547651E1759F300B2FB76 /* FinishStreetViewController.swift */; };
+		64C547681E17983000B2FB76 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C547671E17982F00B2FB76 /* RecordViewController.swift */; };
 		64D67CBA1E02B9E000EDC4D5 /* GPSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D67CB91E02B9E000EDC4D5 /* GPSManager.swift */; };
 		64D67CDF1E03E6B300EDC4D5 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D67CDE1E03E6B300EDC4D5 /* LogInViewController.swift */; };
 		64D67CE11E05107800EDC4D5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D67CE01E05107800EDC4D5 /* MapViewController.swift */; };
@@ -54,6 +57,9 @@
 		64BD450E1E1250070053E774 /* DrawRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawRoute.swift; sourceTree = "<group>"; };
 		64BD45101E13671B0053E774 /* VirtualStreetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VirtualStreetViewController.swift; sourceTree = "<group>"; };
 		64BD45121E1367490053E774 /* VirtualMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VirtualMapViewController.swift; path = PACRun/VirtualMapViewController.swift; sourceTree = "<group>"; };
+		64C547631E16AB7D00B2FB76 /* RecordLocation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RecordLocation.txt; sourceTree = "<group>"; };
+		64C547651E1759F300B2FB76 /* FinishStreetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishStreetViewController.swift; sourceTree = "<group>"; };
+		64C547671E17982F00B2FB76 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		64D67CB91E02B9E000EDC4D5 /* GPSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSManager.swift; sourceTree = "<group>"; };
 		64D67CDE1E03E6B300EDC4D5 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		64D67CE01E05107800EDC4D5 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = PACRun/MapViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +138,8 @@
 				64BD450E1E1250070053E774 /* DrawRoute.swift */,
 				6447C0E91E14EC20004727BD /* GoalView.xib */,
 				6447C0EB1E14F056004727BD /* GoalView.swift */,
+				64C547631E16AB7D00B2FB76 /* RecordLocation.txt */,
+				64C547671E17982F00B2FB76 /* RecordViewController.swift */,
 			);
 			path = PACRun;
 			sourceTree = "<group>";
@@ -145,6 +153,7 @@
 				64FE7CF41E07F69900660581 /* FinishViewController.swift */,
 				64FAC6F81DFAA5FE009C5760 /* StreetViewController.swift */,
 				64BD45101E13671B0053E774 /* VirtualStreetViewController.swift */,
+				64C547651E1759F300B2FB76 /* FinishStreetViewController.swift */,
 				64D67CE01E05107800EDC4D5 /* MapViewController.swift */,
 				64BD45121E1367490053E774 /* VirtualMapViewController.swift */,
 			);
@@ -241,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64C547641E16AB7D00B2FB76 /* RecordLocation.txt in Resources */,
 				6447C0EE1E150D5A004727BD /* TempoThree.mp3 in Resources */,
 				64FAC7041DFAA5FE009C5760 /* LaunchScreen.storyboard in Resources */,
 				6468420F1E10C9D700C6ACC4 /* TempoOne.aif in Resources */,
@@ -311,6 +321,7 @@
 				64BD45111E13671B0053E774 /* VirtualStreetViewController.swift in Sources */,
 				6468420D1E10C71C00C6ACC4 /* TempoManager.swift in Sources */,
 				64D67CE11E05107800EDC4D5 /* MapViewController.swift in Sources */,
+				64C547681E17983000B2FB76 /* RecordViewController.swift in Sources */,
 				646842111E10D4B500C6ACC4 /* GPSTransformation.swift in Sources */,
 				64FE7CCA1E0689B400660581 /* MainNavigationController.swift in Sources */,
 				6447C0EC1E14F056004727BD /* GoalView.swift in Sources */,
@@ -320,6 +331,7 @@
 				64FE7CCC1E068D9D00660581 /* SettingViewController.swift in Sources */,
 				64FE7CD01E06982A00660581 /* StopViewController.swift in Sources */,
 				64D67CBA1E02B9E000EDC4D5 /* GPSManager.swift in Sources */,
+				64C547661E1759F300B2FB76 /* FinishStreetViewController.swift in Sources */,
 				64FE7CF71E08E26100660581 /* PofileManager.swift in Sources */,
 				64D67CDF1E03E6B300EDC4D5 /* LogInViewController.swift in Sources */,
 				64FAC6FF1DFAA5FE009C5760 /* PACRun.xcdatamodeld in Sources */,

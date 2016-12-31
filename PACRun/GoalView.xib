@@ -121,6 +121,11 @@
                 <constraint firstItem="g1e-35-Y5q" firstAttribute="height" secondItem="I18-JT-bSC" secondAttribute="height" id="tgj-F5-pWm"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="distance" destination="eMq-47-sJD" id="tbF-IA-1vI"/>
+                <outlet property="speed" destination="ReP-XO-NMG" id="w8c-9X-c3x"/>
+                <outlet property="totalTime" destination="OR5-0E-sBo" id="c6R-1a-qUq"/>
+            </connections>
             <point key="canvasLocation" x="-73.5" y="65.5"/>
         </view>
     </objects>

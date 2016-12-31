@@ -10,6 +10,15 @@ import UIKit
 
 class GoalView: UIView {
 
+
+    @IBOutlet weak var totalTime: UILabel!
+
+
+    @IBOutlet weak var speed: UILabel!
+
+
+    @IBOutlet weak var distance: UILabel!
+
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

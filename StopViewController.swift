@@ -14,6 +14,15 @@ import Alamofire
 import SwiftyJSON
 
 class StopViewController: UIViewController {
+
+
+    @IBOutlet weak var homeButtonOutlet: UIButton!
+
+
+    @IBOutlet weak var finishButton: UIButton!
+
+    @IBOutlet weak var speedLabel: UILabel!
+
     //======street view
     //Google map
     var panoView : GMSPanoramaView?
@@ -76,7 +85,7 @@ class StopViewController: UIViewController {
     @IBOutlet weak var stopwatchLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     //建立紀錄物件
-    let runRecord : RunRecordManager? = nil
+    //let runRecord : RunRecordManager? = nil
     //設定目標距離跟tempo
     var objectDistance : Int?
     var tempoSpeed : Int?
@@ -87,7 +96,7 @@ class StopViewController: UIViewController {
     var marker = GMSMarker()
     var virLatitude : String?
     var virLongitude : String?
-    var virHeading : Double?
+    var virHeading : Double? = 0
     //設定tempo
 
     @IBOutlet weak var tempoLabel: UILabel!
@@ -98,6 +107,11 @@ class StopViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.homeButtonOutlet.isHidden = true
+        self.navigationItem.hidesBackButton = true
+        //let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(EditViewController.back(sender:)))
+        //self.navigationItem.leftBarButtonItem = newBackButton
+
         self.virLatitude = String(34.685805)
         self.virLongitude = String(135.520839)
 
@@ -122,34 +136,26 @@ class StopViewController: UIViewController {
         self.longitude = 135.52167
        // NotificationCenter.default.addObserver(self, selector: #selector(StreetViewController.didUpdateCoordinate(date:)), name: NSNotification.Name(rawValue: "updateCoordinate"), object: nil)
         // Do any additional setup after loading the view.
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
 
-        //設定地圖的frame
         self.mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: self.inStopMapView.frame.width, height: self.inStopMapView.frame.height))
 
         self.inStopMapView.addSubview(mapView!)
         //加入跳到map的按鈕
         self.mapView?.addSubview(mapViewButtonOutlet)
+
         //關閉google map 的功能
         self.mapView?.settings.scrollGestures = false
         self.mapView?.settings.rotateGestures = false
         self.mapView?.settings.zoomGestures = false
 
-        //標示起始點的位置
         let startPoint = CLLocationCoordinate2DMake(34.683298, 135.52167)
         let location1 = GMSMarker(position: startPoint)
-        //location1.title = "London";
-       // london1.icon = UIImage(named: "house")
         location1.map = mapView;
+
         //標示終點的位置
         let endPoint = CLLocationCoordinate2DMake(34.6380876, 135.4161057)
         let location2 = GMSMarker(position: endPoint)
+        location2.icon = UIImage(named: "Destination")
         location2.map = mapView;
 
         //設定camera的位置
@@ -157,20 +163,14 @@ class StopViewController: UIViewController {
         let calgary = CLLocationCoordinate2DMake(34.6000876, 135.4001057)
         let bounds = GMSCoordinateBounds(coordinate: vancouver, coordinate: calgary)
         self.mapView?.camera = (mapView?.camera(for: bounds, insets: UIEdgeInsets.zero))!
+
         //self.mapView?.camera = GMSCameraPosition.camera(withLatitude: self.latitude!,longitude:self.longitude! , zoom: 13)
         //設定類型
         self.mapView?.mapType = kGMSTypeTerrain
         //
         //是否顯示自己的位置
-        self.mapView?.isMyLocationEnabled = true
+        //self.mapView?.isMyLocationEnabled = true
 
-        //繪製路徑
-        /*let draw = DrawRoute()
-        draw.mapView = self.mapView
-        for i in 0...25 {
-            print("i=\(i)")
-        draw.addOverlayToMapView(originLat: waypoint[i]["lat"]!, originLon: waypoint[i]["lng"]!, destinationLat: waypoint[i+1]["lat"]!, destinationLon: waypoint[i+1]["lng"]!)
-        }*/
         let route = ["cqurEk|czXjGsA`BYJGfB_@HKzA}CtAwCHi@j@wMX}GHmB\\kC`@}CBwD@yPBoA`@?",
                      "_vtrE}jfzX\\?^OTB~ARv@LnC^XH@CdC^`ALdAPlEn@bDd@BDJBrAh@f@Vh@Rl@Zz@\\Pb@f@DFEDEBBHFnCh@BBPBfCj@rB`@BBNBhDt@HHNBDCp@RdDr@NHHAtA^BD^DdDv@BDR?r@NjAXxGxALBDF@A@BHLP?H??U?W",
                      "ouqrEsnezX?l@b@A@A?F@GIB?x@A~@FtA@PGdK?|JHHC\\E\\D`EWjGAj@?tE@p@NRLPEt@[JMFEd@OvB?RWlD@BARCFMdBM|A@BNZ?REv@ONGD?HG`EKrIEfEN\\BBCn@?LSRAj@EpCGtEGpFMfHBXCv@?HB??DS??P?h@K??z@AzAErICvL?`BS?",
@@ -198,20 +198,45 @@ class StopViewController: UIViewController {
                      "c{lrE{rpyXB\\IXr@xG`@dD\\xDfEvAGZJT}ChDHTJhABbBx@dJNLHZ",
                      "yrlrEaaoyXI[pI_JVe@"]
         for i in 0...25 {
-        addPolyLineWithEncodedStringInMap(encodedString: route[i])
+            addPolyLineWithEncodedStringInMap(encodedString: route[i])
         }
         mylocation = GMSMarker(position: myPoint!)
         mylocation?.icon = UIImage(named: "New_location")
+        mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         mylocation?.map = mapView;
 
-        //======Street View==========
+        //標示起始點的位置
+
+
         self.panoView = GMSPanoramaView(frame: CGRect(x: 0, y: 0, width: self.inStopStreetView.bounds.width, height: self.inStopStreetView.bounds.height))
         self.inStopStreetView.addSubview(panoView!)
         self.inStopStreetView.addSubview(streetViewButtonOutlet)
+        self.inStopStreetView.addSubview(finishButton)
         panoView?.camera = GMSPanoramaCamera(heading: heading, pitch: -10, zoom: 1)
         if let coordinate = coordinateValue {
             panoView?.moveNearCoordinate(coordinate)
         }
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        //設定地圖的frame
+
+        //繪製路徑
+        /*let draw = DrawRoute()
+        draw.mapView = self.mapView
+        for i in 0...25 {
+            print("i=\(i)")
+        draw.addOverlayToMapView(originLat: waypoint[i]["lat"]!, originLon: waypoint[i]["lng"]!, destinationLat: waypoint[i+1]["lat"]!, destinationLon: waypoint[i+1]["lng"]!)
+        }*/
+
+
+        //======Street View==========
+
 
 
 
@@ -229,19 +254,24 @@ class StopViewController: UIViewController {
     }
 
     @IBAction func stopButton(_ sender: Any) {
-        //distance
-        GPSManager.sharedInstance.isRecord = false
-        distanceLabel.text = "00.000"
-        GPSManager.sharedInstance.startLocation = nil
-        GPSManager.sharedInstance.traveledDistance = 0
-        isDistanceChange = 0
-        //time
-        self.stop()
-        //GPS
-        GPSManager.sharedInstance.locationManager.stopUpdatingHeading()
-        GPSManager.sharedInstance.locationManager.stopUpdatingLocation()
 
-        self.navigationController?.popViewController(animated: true)
+        let alert =  UIAlertController(title: "確定要離開？", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "確定", style: .default){
+            (name:UIAlertAction)->()in
+            //distance
+
+            self.distanceLabel.text = "00.000"
+            GPSManager.sharedInstance.startLocation = nil
+            GPSManager.sharedInstance.traveledDistance = 0
+            self.isDistanceChange = 0
+            //time
+            self.stop()
+            //GPS
+            self.navigationController?.popViewController(animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+
     }
 
     @IBAction func playButton(_ sender: Any) {
@@ -313,6 +343,7 @@ class StopViewController: UIViewController {
       
         controller.latitude =  Double(self.virLatitude!)
         controller.longitude =   Double(self.virLongitude!)
+        controller.distance = Double(self.distanceLabel.text!)
 
         self.navigationController?.pushViewController(controller, animated: true)
     }
@@ -330,6 +361,13 @@ class StopViewController: UIViewController {
     }
 
 
+    @IBAction func homeButton(_ sender: Any) {
+
+        self.navigationController?.popToRootViewController(animated: false)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "runningRecord"), object: nil, userInfo: nil)
+
+    }
+
 
 }
 //計時器
@@ -342,6 +380,7 @@ extension StopViewController {
                 startTimer = NSDate()
             }
             else {
+                print("STOP,,,,STOP")
                 //Don't start Timer
             }
         }
@@ -370,6 +409,8 @@ extension StopViewController {
             currentTimer = nil
             stopDuration = 0
              stopwatchLabel.text = dateStringFromTimeInterval(timeInterval: 0)
+            GPSManager.sharedInstance.isRecord = false
+            GPSManager.sharedInstance.isPause = true
         }
 
         func dateStringFromTimeInterval(timeInterval : TimeInterval) -> String{
@@ -378,26 +419,25 @@ extension StopViewController {
             formater.timeZone = NSTimeZone(name: "GMT") as TimeZone!
             var date = NSDate(timeIntervalSince1970: timeInterval)
             //紀錄座標
-            if runRecord?.startLocation == nil {
-                runRecord?.startLocation = GPSManager.sharedInstance.GPSCoordinate
-            }
-            runRecord?.allCoordinate?.append(GPSManager.sharedInstance.GPSCoordinate!)
+            //if runRecord?.startLocation == nil {
+            //    runRecord?.startLocation = GPSManager.sharedInstance.GPSCoordinate
+            //}
+            //runRecord?.allCoordinate?.append(GPSManager.sharedInstance.GPSCoordinate!)
             //顯示現在的路程
             distanceLabel.text = formatDistance(meters: GPSManager.sharedInstance.traveledDistance)
-            
+            if timer != nil {
+            self.movePoint(distance: Int(GPSManager.sharedInstance.traveledDistance))
+            }
             ///////////////////
             return formater.string(from: date as Date)
     }
     //距離轉換，從GPS獲得的距離，轉換後只取到公尺，顯示單位為公里
     func formatDistance(meters: Double) -> String {
-
-        let distance = Double(round(meters/10)/100)
-        self.movePoint(distance: Int(meters))
-        return String(distance)
+        let nowdistance = Double(round(meters/10)/100)
+        return String(describing: nowdistance)
     }
     //移動自己的點
     func movePoint(distance:Int){
-        print("ooooooo\(objectDistance)")
         //判斷距離移動才去後台取點的位置
         if distance < objectDistance!*1000 {
             if distance - isDistanceChange >= 10  {
@@ -421,19 +461,20 @@ extension StopViewController {
                         self.coordinateValue = self.myPoint
                         self.panoView?.camera = GMSPanoramaCamera(heading: self.virHeading!, pitch: -10, zoom: 1)
                         self.panoView?.moveNearCoordinate(self.coordinateValue!)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatePointCount"), object: nil, userInfo: ["point_count": pointCount ])
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatePointCount"), object: nil, userInfo: ["point_count": pointCount,"latitude": self.virLatitude!,"longitude" :self.virLongitude!,"heading":self.virHeading!])
+                    
+                        //跑速
+                        self.speedLabel.text = String(describing: (GPSManager.sharedInstance.locationManager.location?.speed)!*(36/10))
 
                     case .failure:
                         print("error")
                     }
-
                 }
                 //更新距離
                 isDistanceChange = distance
             }
         }else{
             showFinishView()
-
         }
     }
     func addPolyLineWithEncodedStringInMap(encodedString: String) {
@@ -446,12 +487,19 @@ extension StopViewController {
     func showFinishView(){
         let nib = UINib(nibName: "GoalView", bundle: nil)
         let array = nib.instantiate(withOwner: nil, options: nil)
-        let goalView = array[0] as! UIView
+        let goalView = array[0] as! GoalView
        // let size = goalView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         goalView.frame = CGRect(origin: CGPoint(x: 0  , y: 64) , size: CGSize(width: 375, height: 201))
+        goalView.totalTime.text = stopwatchLabel.text
+        goalView.distance.text = String(describing: objectDistance!)
         self.view.addSubview(goalView)
-        GPSManager.sharedInstance.locationManager.stopUpdatingHeading()
-        GPSManager.sharedInstance.locationManager.stopUpdatingLocation()
+
+        self.pauseButton.isHidden = true
+        self.startAndStopView.isHidden = true
+        DispatchQueue.main.async {
+            self.stop()
+        }
+        self.homeButtonOutlet.isHidden = false
     }
     
 }

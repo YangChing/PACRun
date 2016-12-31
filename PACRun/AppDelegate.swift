@@ -12,7 +12,7 @@ import GoogleMaps
 import FBSDKCoreKit
 
 var userDefault = UserDefaults.standard
-
+let nowUserKey:String = "nowUser"
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
       //  GMSPlacesClient.provideAPIKey("AIzaSyAfLJIsH-KIXh5HTUAtlI6yUuEvwN5Qen8")
         // Override point for customization after application launch.
+
+
+       
+
         
 
         return true

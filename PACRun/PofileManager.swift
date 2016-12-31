@@ -11,10 +11,9 @@ import CoreLocation
 
 class ProfileManager{
     var name : String?
-    var account : String?
-    var tempo : Int?
-    var kilometer : Int?
-
+    var id : String?
+    var email : String?
+    var distance : Double?
     var image : URL?
 }
 class RunRecordManager{

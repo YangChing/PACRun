@@ -23,7 +23,7 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
 
     var startLocation:CLLocation!
     var lastLocation: CLLocation!
-    var oldlastLocation: CLLocation!
+    var oldlastLocation: CLLocation?
     var traveledDistance:Double = 0
     //設定是否開始記錄
     var isRecord = false
@@ -49,6 +49,8 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
         //開始傳送使用者的位置
         locationManager.startUpdatingLocation()
 
+        
+
         self.GPSCoordinate = locationManager.location?.coordinate
         self.GPSHeading = locationManager.heading?.trueHeading
 
@@ -71,12 +73,12 @@ class GPSManager:NSObject ,CLLocationManagerDelegate {
             } else {
                 
                 if let lastLocation = locations.first {
-                    let lastDistance = oldlastLocation.distance(from: lastLocation)
+                    let lastDistance = oldlastLocation!.distance(from: lastLocation)
                     if lastDistance < 20 && lastDistance > 10{
                         if isPause == false {
                             traveledDistance += lastDistance
                         }
-                        //print("tra:\(traveledDistance)")
+                        print("tra:\(traveledDistance)")
                     }
                 }
                 oldlastLocation = locations.first

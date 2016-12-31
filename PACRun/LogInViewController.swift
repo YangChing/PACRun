@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKLoginKit
+import Alamofire
 
 class LogInViewController: UIViewController {
 
@@ -71,6 +72,28 @@ extension LogInViewController : FBSDKLoginButtonDelegate {
                 print("accessTokenString:\(accessTokenString)")
                 // let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
                 //登入FB資料
+                self.showAlert(title: "登入成功", message: nil , handle :
+                    {   (UIAlertAction) -> () in
+                        print("\(okResult)")
+                       let userID = okResult["id"]
+                       // print("userID:\(userID)")
+                        let parameters: Parameters = [
+                            "access_token" : "\(accessTokenString)"]
+                        Alamofire.request("https://i-running.ga/api/auth/login", method:.post, parameters: parameters, encoding: JSONEncoding.default )
+
+
+                       userDefault.set(okResult["id"], forKey: nowUserKey)
+                        //傳送設定小圖圖案為ＦＢ大頭貼
+                          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setImage"), object: nil, userInfo: ["userID": userID! ])
+                        DispatchQueue.main.async {
+                            
+                            self.dismiss(animated: true, completion: nil)
+
+                        }
+
+
+                        //self.atLoginActivityIndicatorView.stopAnimating()
+                })
 
 
             }
@@ -78,7 +101,13 @@ extension LogInViewController : FBSDKLoginButtonDelegate {
         
     }
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-            print("log out")
+       print("登出成功")
+
+    }
+    func showAlert(title:String?,message:String?,handle:((UIAlertAction)->())?)->(){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: handle))
+        present(alert, animated: true, completion: nil)
     }
 }
 

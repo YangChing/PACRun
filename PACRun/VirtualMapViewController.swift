@@ -47,6 +47,7 @@ class VirtualMapViewController: UIViewController {
     var isDistanceChange : Int = 0
     var myPoint : CLLocationCoordinate2D?
     var mylocation : GMSMarker?
+    var distance : Double?
 
     //設定地圖所需的變數
     var latitude:Double?
@@ -60,9 +61,6 @@ class VirtualMapViewController: UIViewController {
         myPoint = CLLocationCoordinate2DMake(self.latitude!, self.longitude!)
         NotificationCenter.default.addObserver(self, selector: #selector(VirtualMapViewController.movePoint(date:)), name: NSNotification.Name(rawValue: "updatePointCount"), object: nil)
 
-
-    }
-    override func viewWillAppear(_ animated: Bool) {
         self.mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
 
         self.view.addSubview(mapView!)
@@ -81,6 +79,7 @@ class VirtualMapViewController: UIViewController {
         //標示終點的位置
         let endPoint = CLLocationCoordinate2DMake(34.6380876, 135.4161057)
         let location2 = GMSMarker(position: endPoint)
+        location2.icon = UIImage(named: "Destination")
         location2.map = mapView;
 
         //設定camera的可視範圍
@@ -97,11 +96,11 @@ class VirtualMapViewController: UIViewController {
 
         //繪製路徑
         /*
-        let draw = DrawRoute()
-        draw.mapView = self.mapView
-        for i in 0...25 {
-            draw.addOverlayToMapView(originLat: waypoint[i]["lat"]!, originLon: waypoint[i]["lng"]!, destinationLat: waypoint[i+1]["lat"]!, destinationLon: waypoint[i+1]["lng"]!)
-        }*/
+         let draw = DrawRoute()
+         draw.mapView = self.mapView
+         for i in 0...25 {
+         draw.addOverlayToMapView(originLat: waypoint[i]["lat"]!, originLon: waypoint[i]["lng"]!, destinationLat: waypoint[i+1]["lat"]!, destinationLon: waypoint[i+1]["lng"]!)
+         }*/
         let route = ["cqurEk|czXjGsA`BYJGfB_@HKzA}CtAwCHi@j@wMX}GHmB\\kC`@}CBwD@yPBoA`@?",
                      "_vtrE}jfzX\\?^OTB~ARv@LnC^XH@CdC^`ALdAPlEn@bDd@BDJBrAh@f@Vh@Rl@Zz@\\Pb@f@DFEDEBBHFnCh@BBPBfCj@rB`@BBNBhDt@HHNBDCp@RdDr@NHHAtA^BD^DdDv@BDR?r@NjAXxGxALBDF@A@BHLP?H??U?W",
                      "ouqrEsnezX?l@b@A@A?F@GIB?x@A~@FtA@PGdK?|JHHC\\E\\D`EWjGAj@?tE@p@NRLPEt@[JMFEd@OvB?RWlD@BARCFMdBM|A@BNZ?REv@ONGD?HG`EKrIEfEN\\BBCn@?LSRAj@EpCGtEGpFMfHBXCv@?HB??DS??P?h@K??z@AzAErICvL?`BS?",
@@ -134,7 +133,38 @@ class VirtualMapViewController: UIViewController {
 
         mylocation = GMSMarker(position: myPoint!)
         mylocation?.icon = UIImage(named: "New_location")
-        mylocation?.map = mapView;
+        mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+        mylocation?.map = mapView
+
+        if Int(distance!) >= 2 {
+        for i in 1...(Int(distance!)){
+            Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(i*10)").responseJSON { response in
+                switch response.result{
+                case .success:
+                    let json = JSON(response.result.value)
+                    //print("JSON: \(json)")
+                    let virLatitude = json["coordinate"]["latitude"].stringValue
+                    let virLongitude = json["coordinate"]["longitude"].stringValue
+                    let pointCount = json["coordinate"]["point_count"].stringValue
+
+                    self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
+
+                    let endPoint = CLLocationCoordinate2DMake(Double(virLatitude)!, Double(virLongitude)!)
+
+                    let location2 = GMSMarker(position: endPoint)
+                    location2.icon = UIImage(named: "Check_point")
+                    location2.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+                    location2.map = self.mapView;
+                case .failure:
+                    print("error")
+                }
+            }
+        }
+        }
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+
 
     }
     override func didReceiveMemoryWarning() {
@@ -144,30 +174,48 @@ class VirtualMapViewController: UIViewController {
     
     func movePoint(date:NSNotification){
 
-        if let dic = date.userInfo as? [String:String]{
-            //重新設定google camera的位置
-            let pointCount = dic["point_count"]
-            //判斷距離移動才去後台取點的位置
+        print("\(date.userInfo!)")
 
+        if let dic = date.userInfo! as? Dictionary{
+            //重新設定google camera的位置
+
+            let pointCount = dic["point_count"] as? String
+            let lat = dic["latitude"] as? String
+            let long = dic["longitude"] as? String
+            //判斷距離移動才去後台取點的位置
+            print("\(lat)")
+            let virLatitude = lat
+            let virLongitude = long
+             self.mylocation?.map = nil
+            self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude!)!,longitude: Double(virLongitude!)!)
+            self.mylocation = GMSMarker(position: self.myPoint!)
+            self.mylocation?.icon = UIImage(named: "New_location")
+            self.mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+            self.mylocation?.map = self.mapView
+
+
+            /*
             Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(pointCount!)").responseJSON { response in
                 switch response.result{
                 case .success:
                     let json = JSON(response.result.value)
-                    print("JSON: \(json)")
-                    let virLatitude = json["coordinate"]["latitude"].stringValue
-                    let virLongitude = json["coordinate"]["longitude"].stringValue
+                    print("VirtualJSON: \(json)")
+                    let virLatitude = lat
+                    let virLongitude = long
+                    //let virLatitude = json["coordinate"]["latitude"].stringValue
+                    //let virLongitude = json["coordinate"]["longitude"].stringValue
                     self.mylocation?.map = nil
-                    self.mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-                    print("virLongitude:\(virLongitude)")
-                    self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
+
+                    self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude!)!,longitude: Double(virLongitude!)!)
                     self.mylocation = GMSMarker(position: self.myPoint!)
                     self.mylocation?.icon = UIImage(named: "New_location")
+                    self.mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
                     self.mylocation?.map = self.mapView
                 case .failure:
                     print("error")
                 }
-                
-            }
+
+            }*/
         }
     }
 

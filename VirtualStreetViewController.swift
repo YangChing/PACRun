@@ -48,11 +48,18 @@ class VirtualStreetViewController: UIViewController {
     }
     func movePoint(date:NSNotification){
 
-        if let dic = date.userInfo as? [String:String]{
+        if let dic = date.userInfo! as? Dictionary{
             //重新設定google camera的位置
-            let pointCount = dic["point_count"]
+            let pointCount = dic["point_count"] as? String
+            let lat = dic["latitude"] as? String
+            let long = dic["longitude"] as? String
+            let head = dic["heading"] as? Double
             //判斷距離移動才去後台取點的位置
-
+            self.myPoint = CLLocationCoordinate2D(latitude: Double(lat!)!,longitude: Double(long!)!)
+            self.coordinateValue = self.myPoint
+            self.panoView?.camera = GMSPanoramaCamera(heading: head!, pitch: -10, zoom: 1)
+            self.panoView?.moveNearCoordinate(self.coordinateValue!)
+            /*
             Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(pointCount!)").responseJSON { response in
                 switch response.result{
                 case .success:
@@ -70,7 +77,7 @@ class VirtualStreetViewController: UIViewController {
                     print("error")
                 }
 
-            }
+            }*/
         }
     }
 

@@ -60,6 +60,7 @@ class SettingViewController: UIViewController {
         controller.start()
         //設定開始記錄
         GPSManager.sharedInstance.isRecord = true
+        GPSManager.sharedInstance.isPause = false
         //設定目標距離跟tempo
         controller.objectDistance = Int(distanceAndTimeLabel.text!)
         controller.tempoSpeed = Int(tempoLabel.text!)
