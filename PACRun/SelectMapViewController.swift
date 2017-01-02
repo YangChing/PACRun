@@ -24,11 +24,13 @@ class SelectMapViewController: UIViewController {
     @IBOutlet weak var leftDistance: UILabel!
 
 
+    @IBOutlet weak var containerView: UIView!
 
     var selfImage : UIImageView?
     var slider : [UISlider] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        //按下home回到此頁後會直接開啟跑步記錄
         NotificationCenter.default.addObserver(self, selector: #selector(SelectMapViewController.runningRecord(_:)), name: NSNotification.Name(rawValue: "runningRecord"), object: nil)
 
 
@@ -82,30 +84,58 @@ class SelectMapViewController: UIViewController {
             }
 
         }
+        //
+       
+
+
 
         // 讀檔與寫檔
-        var getOriginFileArray = [String]()
-        //設定準備要讀取的檔案的路徑
-        let fileManager = FileManager.default
-        let paths = fileManager.urls(for: .documentDirectory , in: .userDomainMask)
-        let home = paths.first?.appendingPathComponent("RecordLocation.txt")
-        print("Home:\(home)")
+//        var getOriginFileArray = [String]()
+//        //設定準備要讀取的檔案的路徑
+//        let fileManager = FileManager.default
+//        let paths = fileManager.urls(for: .documentDirectory , in: .userDomainMask)
+//        let home = paths.first?.appendingPathComponent("RecordLocation.txt")
+//        print("Home:\(home)")
         //讀取檔案內容
-        let readArray2 = NSArray(contentsOf: home!)
-        print(readArray2)
-        if readArray2 != nil{
-            for ele in readArray2!{
-                if ele != nil {
-                    getOriginFileArray.append(ele as! String)
-                }
-            }
-        }
-       let arrar = arrayFromContentsOfFileWithName(fileName: "RecordLocation")
-        for n in arrar! {
-            print("\(n)")
-        }
-        let parameters: Parameters = ["跑步紀錄":"1","時間":"01:15:39","距離":"10"]
-        Alamofire.request("https://i-running.ga/api/records", method:.post, parameters: parameters, encoding: JSONEncoding.default )
+//        
+//        if let path = Bundle.main.path(forResource: "RecordLocation", ofType: "json") {
+//            do {
+//                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+//                let jsonObj = JSON(data: data)
+//                if jsonObj != JSON.null {
+//                    print("jsonData:\(jsonObj)")
+//                } else {
+//                    print("Could not get json from file, make sure that file contains valid json.")
+//                }
+//            } catch let error {
+//                print(error.localizedDescription)
+//            }
+//        } else {
+//            print("Invalid filename/path.")
+//        }
+//        //寫入
+//        let path = Bundle.main.path(forResource: "RecordLocation", ofType: "json")
+//        let levels = ["unlocked", "locked", "locked"]
+//        let json = JSON(levels)
+//        let str = json.description
+//        let data = str.data(using: String.Encoding.utf8)!
+//        if let file = FileHandle(forWritingAtPath: path!) {
+//            file.write(data)
+//        }
+//        var numbers = [String]()
+//
+//            numbers.append("[ \"round2\": { \"time\":\"00:30:29\", \"date\" : \"2017-01-01\" , \"speed\": \"13.5\" } ]")
+//
+        //let json = JSON(levels)
+
+
+        //讀取檔案內容2
+//       let arrar = arrayFromContentsOfFileWithName(fileName: "RecordLocation")
+//        for n in arrar! {
+//
+//            print("\(n)")
+//        }
+
                 // Do any additional setup after loading the view.
     }
     func arrayFromContentsOfFileWithName(fileName: String) -> [String]? {
@@ -249,6 +279,18 @@ class SelectMapViewController: UIViewController {
         let controller = storyboard.instantiateViewController(withIdentifier: "RecordViewController") as! RecordViewController
         self.navigationController?.pushViewController(controller, animated: false)
 
+    }
+
+
+    @IBAction func detailButton(_ sender: Any) {
+
+        containerView.isHidden = false
+
+    }
+
+
+    @IBAction func tapGesture(_ sender: Any) {
+        containerView.isHidden = true
     }
 
 

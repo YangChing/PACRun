@@ -16,6 +16,8 @@ import SwiftyJSON
 class StopViewController: UIViewController {
 
 
+    var isFake = false
+
     @IBOutlet weak var homeButtonOutlet: UIButton!
 
 
@@ -343,7 +345,8 @@ class StopViewController: UIViewController {
       
         controller.latitude =  Double(self.virLatitude!)
         controller.longitude =   Double(self.virLongitude!)
-        controller.distance = Double(self.distanceLabel.text!)
+        controller.distance = Double(self.distanceLabel.text!)!
+        print("self.distanceLabel.text:\(self.distanceLabel.text!)")
 
         self.navigationController?.pushViewController(controller, animated: true)
     }
@@ -363,11 +366,76 @@ class StopViewController: UIViewController {
 
     @IBAction func homeButton(_ sender: Any) {
 
+        self.distanceLabel.text = "00.000"
+        GPSManager.sharedInstance.startLocation = nil
+        GPSManager.sharedInstance.traveledDistance = 0
+        self.isDistanceChange = 0
+        //time
+        self.stop()
+
         self.navigationController?.popToRootViewController(animated: false)
+
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "runningRecord"), object: nil, userInfo: nil)
 
     }
 
+
+    @IBAction func finishButton(_ sender: Any) {
+
+        isFake = false
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "FinishStreetViewController") as! FinishStreetViewController
+
+        controller.distance = Double(self.distanceLabel.text!)!
+
+
+        self.navigationController?.pushViewController(controller, animated: true)
+        //FinishStreetViewController
+        
+    }
+
+
+    @IBAction func fakeButton(_ sender: Any) {
+
+
+        objectDistance = 10
+
+         isFake = true
+        self.distanceLabel.text = "10.00"
+        Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/100").responseJSON { response in
+            switch response.result{
+            case .success:
+                let json = JSON(response.result.value)
+                //print("JSON: \(json)")
+                self.virLatitude = json["coordinate"]["latitude"].stringValue
+                self.virLongitude = json["coordinate"]["longitude"].stringValue
+                let pointCount = json["coordinate"]["point_count"].stringValue
+                self.mylocation?.map = nil
+                //print("virLongitude:\(self.virLongitude)")
+                self.myPoint = CLLocationCoordinate2D(latitude: Double(self.virLatitude!)!,longitude: Double(self.virLongitude!)!)
+                self.mylocation = GMSMarker(position: self.myPoint!)
+                self.mylocation?.icon = UIImage(named: "New_location")
+                self.mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+                self.mylocation?.map = self.mapView
+                self.coordinateValue = self.myPoint
+                self.virHeading =  Double(json["coordinate"]["heading"].stringValue)
+                self.coordinateValue = self.myPoint
+                self.panoView?.camera = GMSPanoramaCamera(heading: self.virHeading!, pitch: -10, zoom: 1)
+                self.panoView?.moveNearCoordinate(self.coordinateValue!)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatePointCount"), object: nil, userInfo: ["point_count": pointCount,"latitude": self.virLatitude!,"longitude" :self.virLongitude!,"heading":self.virHeading!])
+
+                //跑速
+                self.speedLabel.text = String(describing: (GPSManager.sharedInstance.locationManager.location?.speed)!*(36/10))
+                self.showFinishView()
+
+            case .failure:
+                print("error")
+            }
+        }
+
+
+    }
 
 }
 //計時器
@@ -424,22 +492,28 @@ extension StopViewController {
             //}
             //runRecord?.allCoordinate?.append(GPSManager.sharedInstance.GPSCoordinate!)
             //顯示現在的路程
+            if isFake == false{
             distanceLabel.text = formatDistance(meters: GPSManager.sharedInstance.traveledDistance)
+            }else{
+                distanceLabel.text = "10"
+            }
             if timer != nil {
             self.movePoint(distance: Int(GPSManager.sharedInstance.traveledDistance))
-            }
+                }
+            
+
             ///////////////////
             return formater.string(from: date as Date)
     }
     //距離轉換，從GPS獲得的距離，轉換後只取到公尺，顯示單位為公里
     func formatDistance(meters: Double) -> String {
-        let nowdistance = Double(round(meters/10)/100)
+        let nowdistance = Double(round(meters/10)/10)
         return String(describing: nowdistance)
     }
     //移動自己的點
     func movePoint(distance:Int){
         //判斷距離移動才去後台取點的位置
-        if distance < objectDistance!*1000 {
+        if distance*10 < objectDistance!*1000 {
             if distance - isDistanceChange >= 10  {
                 Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(Int(distance/10))").responseJSON { response in
                     switch response.result{
@@ -485,6 +559,8 @@ extension StopViewController {
         polyLine.map = mapView
     }
     func showFinishView(){
+
+        player?.stop()
         let nib = UINib(nibName: "GoalView", bundle: nil)
         let array = nib.instantiate(withOwner: nil, options: nil)
         let goalView = array[0] as! GoalView
@@ -500,6 +576,60 @@ extension StopViewController {
             self.stop()
         }
         self.homeButtonOutlet.isHidden = false
+
+        let date = Date()
+        var dateFormatter = DateFormatter()
+        var dateFormatter2 = DateFormatter()
+        dateFormatter.dateFormat = "yyyy年M月d日 HH:mm"
+        dateFormatter2.dateFormat = "yyyyMMddHHmm"
+        var str = dateFormatter.string(from: date)
+        var str2 = dateFormatter2.string(from: date)
+
+        var timeToHour = [String]()
+        timeToHour.append(goalView.totalTime.text!)
+        for ele in timeToHour {
+            let get = ele.components(separatedBy: ":")
+            print("======\n",get)   // 拆解後長相 ["Au", "Day1" ]
+
+            let totalTime = Double(get[0])! + Double(get[1])!/60 + Double(get[2])!/3600
+            let avg = round((Double(self.objectDistance!)/totalTime)*100)/100
+            goalView.speed.text = String(avg)
+
+        }
+
+        var user_id:String?
+        Alamofire.request("https://i-running.ga/api/users").responseJSON { response in
+
+            switch response.result{
+            case .success:
+                let json = JSON(response.result.value)
+                //print("JSON: \(json)")
+                let count = json.count
+                for i in 0...(json.count-1){
+                    if json[i]["fb_uid"].stringValue  == userDefault.value(forKey: nowUserKey) as? String{
+                        user_id = json[i]["id"].stringValue
+                        print("userid=\(user_id)")
+                        let parameters: Parameters = ["access_token" : "\(userDefault.data(forKey: nowUserKey))","time":"\(goalView.totalTime.text!)","distance":"\(goalView.distance.text!)","date":"\(str)","id":"\(str2)","user_id":"\(user_id!)","velocity":"\(goalView.speed.text!)"]
+
+                        Alamofire.request("https://i-running.ga/api/records", method:.post, parameters: parameters, encoding: JSONEncoding.default )
+
+
+                    }
+                }
+
+            case .failure:
+                print("error")
+            }
+        }
+
+
+
+
+
+        //var record = RecordManager(date: str, distance: goalView.distance.text!, time: goalView.totalTime.text!)
+
+//        userDefault.setValue(record, forKey: "")
+
     }
     
 }

@@ -92,7 +92,7 @@ class VirtualMapViewController: UIViewController {
         self.mapView?.mapType = kGMSTypeTerrain
         //
         //是否顯示自己的位置
-        self.mapView?.isMyLocationEnabled = true
+        //self.mapView?.isMyLocationEnabled = true
 
         //繪製路徑
         /*
@@ -136,35 +136,36 @@ class VirtualMapViewController: UIViewController {
         mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         mylocation?.map = mapView
 
-        if Int(distance!) >= 2 {
-        for i in 1...(Int(distance!)){
-            Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(i*10)").responseJSON { response in
-                switch response.result{
-                case .success:
-                    let json = JSON(response.result.value)
-                    //print("JSON: \(json)")
-                    let virLatitude = json["coordinate"]["latitude"].stringValue
-                    let virLongitude = json["coordinate"]["longitude"].stringValue
-                    let pointCount = json["coordinate"]["point_count"].stringValue
 
-                    self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
-
-                    let endPoint = CLLocationCoordinate2DMake(Double(virLatitude)!, Double(virLongitude)!)
-
-                    let location2 = GMSMarker(position: endPoint)
-                    location2.icon = UIImage(named: "Check_point")
-                    location2.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-                    location2.map = self.mapView;
-                case .failure:
-                    print("error")
-                }
-            }
-        }
-        }
 
     }
     override func viewWillAppear(_ animated: Bool) {
+        print("\(distance)")
+        if Int(distance!) >= 2 {
+            for i in 1...(Int(distance!)){
+                Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(i*10)").responseJSON { response in
+                    switch response.result{
+                    case .success:
+                        let json = JSON(response.result.value)
+                        //print("JSON: \(json)")
+                        let virLatitude = json["coordinate"]["latitude"].stringValue
+                        let virLongitude = json["coordinate"]["longitude"].stringValue
+                        let pointCount = json["coordinate"]["point_count"].stringValue
 
+                        self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
+
+                        let endPoint = CLLocationCoordinate2DMake(Double(virLatitude)!, Double(virLongitude)!)
+
+                        let location2 = GMSMarker(position: endPoint)
+                        location2.icon = UIImage(named: "Check_point")
+                        location2.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+                        location2.map = self.mapView;
+                    case .failure:
+                        print("error")
+                    }
+                }
+            }
+        }
 
     }
     override func didReceiveMemoryWarning() {

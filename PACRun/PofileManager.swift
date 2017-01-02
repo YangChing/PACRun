@@ -9,16 +9,14 @@
 import Foundation
 import CoreLocation
 
-class ProfileManager{
-    var name : String?
-    var id : String?
-    var email : String?
-    var distance : Double?
-    var image : URL?
-}
-class RunRecordManager{
-    var startLocation : CLLocationCoordinate2D?
-    var endLocation : CLLocationCoordinate2D?
-    var runMap: Int?
-    var allCoordinate : [CLLocationCoordinate2D]?
+class RecordManager{
+    var date: String
+    var distance : Double
+    var time : String
+    init(date:String,distance:Double,time:String){
+        self.date = date
+        self.distance = distance
+        self.time = time
+    }
+
 }

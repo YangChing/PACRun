@@ -46,11 +46,12 @@ class FinishStreetViewController: UIViewController {
             panoView?.moveNearCoordinate(coordinate)
         }
 
-
-            for n in 1...50 {
+        if Int(distance!) >= 2 {
+            for n in 1...(Int(distance!)){
             self.delay(Double(n)){
                 self.autoRunStreetview(i: n)
                 }
+            }
         }
 
 

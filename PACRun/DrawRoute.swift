@@ -44,7 +44,6 @@ class DrawRoute{
 
             }
         }
-
     }
     func addPolyLineWithEncodedStringInMap(encodedString: String) {
         let path = GMSMutablePath(fromEncodedPath: encodedString)

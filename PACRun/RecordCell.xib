@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecordCell" id="3hN-oJ-upz" customClass="RecordCell" customModule="PACRun" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3hN-oJ-upz" id="s4O-TT-OQu">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle" translatesAutoresizingMaskIntoConstraints="NO" id="qUR-fG-Xst">
+                        <rect key="frame" x="44" y="8" width="286" height="55"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" red="0.20392156859999999" green="0.20784313730000001" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="qUR-fG-Xst" firstAttribute="centerY" secondItem="s4O-TT-OQu" secondAttribute="centerY" id="r6F-fF-kKs"/>
+                    <constraint firstItem="qUR-fG-Xst" firstAttribute="centerX" secondItem="s4O-TT-OQu" secondAttribute="centerX" id="yJc-g3-9eb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.14863163230000001" green="0.151432395" blue="0.2218884528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <point key="canvasLocation" x="79.5" y="41.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Rectangle" width="286" height="55"/>
+    </resources>
+</document>
