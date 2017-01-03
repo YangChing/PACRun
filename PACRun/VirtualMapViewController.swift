@@ -13,8 +13,11 @@ import GoogleMaps
 import Alamofire
 import SwiftyJSON
 
-class VirtualMapViewController: UIViewController {
+class VirtualMapViewController: UIViewController  {
 
+    var oldDistance:Int = 0
+
+    @IBOutlet weak var inVirtualMapStreetView: UIView!
 
     let waypoint = [["lat": 34.685805, "lng": 135.520839],
                     ["lat": 34.681447, "lng": 135.533316],
@@ -64,21 +67,23 @@ class VirtualMapViewController: UIViewController {
         self.mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
 
         self.view.addSubview(mapView!)
-
+        mapView?.delegate = self
         //關閉google map 的功能
         //self.mapView?.settings.scrollGestures = false
         //self.mapView?.settings.rotateGestures = false
         //self.mapView?.settings.zoomGestures = false
 
         //標示起始點的位置
-        let startPoint = CLLocationCoordinate2DMake(34.683298, 135.52167)
+        let startPoint = CLLocationCoordinate2DMake(34.685585, 135.520828)
         let location1 = GMSMarker(position: startPoint)
+         location1.userData = startPoint
         //location1.title = "London";
         // london1.icon = UIImage(named: "house")
         location1.map = mapView;
         //標示終點的位置
         let endPoint = CLLocationCoordinate2DMake(34.6380876, 135.4161057)
         let location2 = GMSMarker(position: endPoint)
+        location2.userData = endPoint
         location2.icon = UIImage(named: "Destination")
         location2.map = mapView;
 
@@ -134,16 +139,19 @@ class VirtualMapViewController: UIViewController {
         mylocation = GMSMarker(position: myPoint!)
         mylocation?.icon = UIImage(named: "New_location")
         mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+        mylocation?.userData = myPoint
         mylocation?.map = mapView
 
-
+        self.view.addSubview(inVirtualMapStreetView)
+        inVirtualMapStreetView.isHidden = true
 
     }
     override func viewWillAppear(_ animated: Bool) {
         print("\(distance)")
-        if Int(distance!) >= 2 {
-            for i in 1...(Int(distance!)){
-                Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(i*10)").responseJSON { response in
+        if (Int(distance!) + oldDistance) >= 2 {
+            for i in 1...(Int(distance!) + Int(Double(oldDistance)/1.5)){
+                if i < 448/15 {
+                Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(i*15)").responseJSON { response in
                     switch response.result{
                     case .success:
                         let json = JSON(response.result.value)
@@ -157,11 +165,15 @@ class VirtualMapViewController: UIViewController {
                         let endPoint = CLLocationCoordinate2DMake(Double(virLatitude)!, Double(virLongitude)!)
 
                         let location2 = GMSMarker(position: endPoint)
+
                         location2.icon = UIImage(named: "Check_point")
                         location2.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-                        location2.map = self.mapView;
+                        location2.userData = self.myPoint
+                        location2.map = self.mapView
+
                     case .failure:
                         print("error")
+                        }
                     }
                 }
             }
@@ -192,31 +204,11 @@ class VirtualMapViewController: UIViewController {
             self.mylocation = GMSMarker(position: self.myPoint!)
             self.mylocation?.icon = UIImage(named: "New_location")
             self.mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+            self.mylocation?.userData = myPoint
             self.mylocation?.map = self.mapView
 
 
-            /*
-            Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(pointCount!)").responseJSON { response in
-                switch response.result{
-                case .success:
-                    let json = JSON(response.result.value)
-                    print("VirtualJSON: \(json)")
-                    let virLatitude = lat
-                    let virLongitude = long
-                    //let virLatitude = json["coordinate"]["latitude"].stringValue
-                    //let virLongitude = json["coordinate"]["longitude"].stringValue
-                    self.mylocation?.map = nil
 
-                    self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude!)!,longitude: Double(virLongitude!)!)
-                    self.mylocation = GMSMarker(position: self.myPoint!)
-                    self.mylocation?.icon = UIImage(named: "New_location")
-                    self.mylocation?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-                    self.mylocation?.map = self.mapView
-                case .failure:
-                    print("error")
-                }
-
-            }*/
         }
     }
 
@@ -235,5 +227,33 @@ class VirtualMapViewController: UIViewController {
         polyLine.strokeWidth = 4
         polyLine.strokeColor = UIColor.blue
         polyLine.map = mapView
+    }
+}
+extension VirtualMapViewController : GMSMapViewDelegate{
+    //handle when user tapped the marker
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        //present information page
+        //mapViewButtonMenuView.alpha = 0
+
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "VirtualStreetViewController") as! VirtualStreetViewController
+
+        let coor = marker.userData as! CLLocationCoordinate2D
+        controller.latitude =  Double(coor.latitude)
+        controller.longitude =   Double(coor.longitude)
+        controller.heading = 0
+
+        self.navigationController?.pushViewController(controller, animated: true)
+
+        //change mark to red
+        //if userData is nil -> is not court -> it's the searchresult
+//        print("tap")
+//        let panoView = GMSPanoramaView(frame: CGRect(x: 0, y: 0 , width:  inVirtualMapStreetView.frame.width, height: inVirtualMapStreetView.frame.height))
+//        panoView.moveNearCoordinate(marker.userData as! CLLocationCoordinate2D)
+//        self.inVirtualMapStreetView.addSubview(panoView)
+//        inVirtualMapStreetView.isHidden = false
+
+        return true
     }
 }

@@ -29,6 +29,7 @@ class FinishStreetViewController: UIViewController {
     var longitude:Double?
     //
     var distance:Double?
+    var oldDistance:Int = 0
 
 
     override func viewDidLoad() {
@@ -48,8 +49,8 @@ class FinishStreetViewController: UIViewController {
 
         if Int(distance!) >= 2 {
             for n in 1...(Int(distance!)){
-            self.delay(Double(n)){
-                self.autoRunStreetview(i: n)
+                self.delay(Double(n)*1.5){
+                    self.autoRunStreetview(i: n)
                 }
             }
         }
@@ -70,47 +71,47 @@ class FinishStreetViewController: UIViewController {
             //重新設定google camera的位置
             let pointCount = dic["point_count"]
 
+            if Int(pointCount!)! < 448 {
+                Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(pointCount!)").responseJSON { response in
+                    switch response.result{
+                    case .success:
+                        let json = JSON(response.result.value)
+                        print("JSON: \(json)")
+                        let virLatitude = json["coordinate"]["latitude"].stringValue
+                        let virLongitude = json["coordinate"]["longitude"].stringValue
+                        let heading =  json["coordinate"]["heading"].stringValue
+                        self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
+                        self.coordinateValue = self.myPoint
+                        self.panoView?.camera = GMSPanoramaCamera(heading: Double(heading)!, pitch: -10, zoom: 1)
+                        self.panoView?.moveNearCoordinate(self.coordinateValue!)
 
-             Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(pointCount!)").responseJSON { response in
-             switch response.result{
-             case .success:
-             let json = JSON(response.result.value)
-             print("JSON: \(json)")
-             let virLatitude = json["coordinate"]["latitude"].stringValue
-             let virLongitude = json["coordinate"]["longitude"].stringValue
-             let heading =  json["coordinate"]["heading"].stringValue
-             self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
-             self.coordinateValue = self.myPoint
-             self.panoView?.camera = GMSPanoramaCamera(heading: Double(heading)!, pitch: -10, zoom: 1)
-             self.panoView?.moveNearCoordinate(self.coordinateValue!)
-
-             case .failure:
-             print("error")
-             }
-
-             }
+                    case .failure:
+                        print("error")
+                    }
+                }
+            }
         }
     }
 
     func autoRunStreetview(i:Int){
 
+        if i < 448 {
+            Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(i)").responseJSON { response in
+                switch response.result{
+                case .success:
+                    let json = JSON(response.result.value)
+                    print("JSON: \(json)")
+                    let virLatitude = json["coordinate"]["latitude"].stringValue
+                    let virLongitude = json["coordinate"]["longitude"].stringValue
+                    let heading =  json["coordinate"]["heading"].stringValue
+                    self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
+                    self.coordinateValue = self.myPoint
+                    self.panoView?.camera = GMSPanoramaCamera(heading: Double(heading)!, pitch: -10, zoom: 1)
+                    self.panoView?.moveNearCoordinate(self.coordinateValue!)
 
-        Alamofire.request("https://i-running.ga/api/marathons/osaka/coordinates/\(i)").responseJSON { response in
-            switch response.result{
-            case .success:
-                let json = JSON(response.result.value)
-                print("JSON: \(json)")
-                let virLatitude = json["coordinate"]["latitude"].stringValue
-                let virLongitude = json["coordinate"]["longitude"].stringValue
-                let heading =  json["coordinate"]["heading"].stringValue
-                self.myPoint = CLLocationCoordinate2D(latitude: Double(virLatitude)!,longitude: Double(virLongitude)!)
-                self.coordinateValue = self.myPoint
-                self.panoView?.camera = GMSPanoramaCamera(heading: Double(heading)!, pitch: -10, zoom: 1)
-                self.panoView?.moveNearCoordinate(self.coordinateValue!)
-
-            case .failure:
-                print("error")
-
+                case .failure:
+                    print("error")
+                }
             }
         }
         // Put your code which should be executed with a delay here
@@ -127,5 +128,5 @@ class FinishStreetViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-
+    
 }

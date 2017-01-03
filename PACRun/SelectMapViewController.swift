@@ -37,55 +37,7 @@ class SelectMapViewController: UIViewController {
         //獲取使用者資料
         NotificationCenter.default.addObserver(self, selector: #selector(SelectMapViewController.setImage(date:)), name: NSNotification.Name(rawValue: "setImage"), object: nil)
 
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        //判斷使用者是否已登入，若無則跳出登入頁面
-        if userDefault.string(forKey: nowUserKey) == nil || userDefault.string(forKey: nowUserKey) == "" {
-            let controller = storyboard.instantiateViewController(withIdentifier: "LogInViewController")
-            self.present(controller, animated: true, completion: nil)
 
-        }else{
-            selfSlider.setThumbImage(setImageInSlider(userID: userDefault.value(forKey: nowUserKey)! as! String), for: .normal)
-
-
-            Alamofire.request("https://i-running.ga/api/users").responseJSON { response in
-
-                switch response.result{
-                case .success:
-                    let json = JSON(response.result.value)
-                    //print("JSON: \(json)")
-                    let count = json.count
-                    for i in 0...(json.count-1){
-                        if json[i]["fb_uid"].stringValue  == userDefault.value(forKey: nowUserKey) as? String{
-                            let distance = json[i]["total_distance"].floatValue
-                            print("distance:\(distance)")
-                            self.finishDistance.text =  String(json[i]["total_distance"].floatValue)
-                            self.leftDistance.text = String(44.7-json[i]["total_distance"].floatValue )
-                                self.selfSlider.value = distance
-                        }else{
-                            let slider = UISlider()
-                            slider.maximumValue = self.selfSlider.maximumValue
-                            slider.minimumValue = self.selfSlider.minimumValue
-                            slider.frame = self.selfSlider.frame
-                            slider.setThumbImage(self.setImageInSlider(userID: json[i]["fb_uid"].stringValue), for: .normal)
-                            slider.value = json[i]["total_distance"].floatValue
-
-                            slider.maximumTrackTintColor = UIColor.clear
-                            slider.minimumTrackTintColor = UIColor.clear
-                            self.slider.append(slider)
-                        }
-                    }
-                    for i in 0...(self.slider.count-1) {
-                        self.stackView.addSubview(self.slider[i])
-                    }
-                    print("id:\(count)")
-                case .failure:
-                    print("error")
-                }
-            }
-
-        }
-        //
-       
 
 
 
@@ -157,6 +109,58 @@ class SelectMapViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        //判斷使用者是否已登入，若無則跳出登入頁面
+        if userDefault.string(forKey: nowUserKey) == nil || userDefault.string(forKey: nowUserKey) == "" {
+            let controller = storyboard.instantiateViewController(withIdentifier: "LogInViewController")
+            self.present(controller, animated: true, completion: nil)
+
+        }else{
+            selfSlider.setThumbImage(setImageInSlider(userID: userDefault.value(forKey: nowUserKey)! as! String), for: .normal)
+
+
+            Alamofire.request("https://i-running.ga/api/users").responseJSON { response in
+
+                switch response.result{
+                case .success:
+                    let json = JSON(response.result.value)
+                    //print("JSON: \(json)")
+                    let count = json.count
+                    var myI : Int?
+                    for i in 0...(json.count-1){
+                        if json[i]["fb_uid"].stringValue  == userDefault.value(forKey: nowUserKey) as? String{
+
+                            myI = i
+                            let distance = json[myI!]["total_distance"].floatValue
+                            self.finishDistance.text =  String(json[myI!]["total_distance"].floatValue)
+                            self.leftDistance.text = String(44.7-json[myI!]["total_distance"].floatValue )
+                            self.selfSlider.value = distance
+                        }else{
+                            let slider = UISlider()
+                            slider.maximumValue = self.selfSlider.maximumValue
+                            slider.minimumValue = self.selfSlider.minimumValue
+                            slider.frame = self.selfSlider.frame
+                            slider.setThumbImage(self.setImageInSlider(userID: json[i]["fb_uid"].stringValue), for: .normal)
+                            slider.value = json[i]["total_distance"].floatValue
+
+                            slider.maximumTrackTintColor = UIColor.clear
+                            slider.minimumTrackTintColor = UIColor.clear
+                            self.slider.append(slider)
+                        }
+                    }
+                    for i in 0...(self.slider.count-1) {
+                        self.stackView.addSubview(self.slider[i])
+                    }
+                    self.selfSlider.layer.zPosition = 0.5
+                    print("id:\(count)")
+                case .failure:
+                    print("error")
+                }
+            }
+            
+        }
+        //
+
         player?.stop()
     }
     func setImage(date:Notification){
@@ -193,7 +197,7 @@ class SelectMapViewController: UIViewController {
                     for i in 0...(self.slider.count-1) {
                         self.stackView.addSubview(self.slider[i])
                     }
-
+                    self.selfSlider.layer.zPosition = 0.5
                 case .failure:
                     print("error")
                 }
@@ -244,9 +248,20 @@ class SelectMapViewController: UIViewController {
 
     @IBAction func choiceMapButton(_ sender: Any) {
 
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
-        self.navigationController?.pushViewController(controller, animated: true)
+        if  Int(Double(leftDistance.text!)!) <= 0 {
+            let alert =  UIAlertController(title: "已完成此地圖", message: "請耐心等待下一張地圖開放", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "確定", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+
+        }else{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+            let aaa = (Double(self.finishDistance.text!))!
+            controller.oldDistance = Int(aaa)
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+
+
 
 
     }
@@ -285,6 +300,7 @@ class SelectMapViewController: UIViewController {
     @IBAction func detailButton(_ sender: Any) {
 
         containerView.isHidden = false
+        containerView.layer.zPosition = 0.6
 
     }
 

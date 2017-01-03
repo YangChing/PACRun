@@ -13,11 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" restorationIdentifier="GoalView" id="iN0-l3-epB" customClass="GoalView" customModule="PACRun" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="201"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pix-sT-18S">
-                    <rect key="frame" x="0.0" y="101" width="90" height="100"/>
+                    <rect key="frame" x="0.0" y="40" width="90" height="100"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距離" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqL-8A-ftW">
                             <rect key="frame" x="28" y="11" width="35" height="21"/>
@@ -28,7 +28,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMq-47-sJD">
                             <rect key="frame" x="24" y="40" width="42" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.9832959771156311" green="0.035979244858026505" blue="0.53611689805984497" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cR0-tl-kmj">
@@ -52,7 +52,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I18-JT-bSC">
-                    <rect key="frame" x="285" y="101" width="90" height="100"/>
+                    <rect key="frame" x="285" y="40" width="90" height="100"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="均速" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7N-34-sM4">
                             <rect key="frame" x="28" y="8" width="35" height="21"/>
@@ -63,7 +63,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReP-XO-NMG">
                             <rect key="frame" x="24" y="40" width="42" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.9832959771156311" green="0.035979244858026505" blue="0.53611689805984497" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km/hr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpS-8p-7Im">
@@ -87,23 +87,29 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1e-35-Y5q">
-                    <rect key="frame" x="90" y="101" width="195" height="100"/>
+                    <rect key="frame" x="90" y="40" width="195" height="100"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OR5-0E-sBo">
-                            <rect key="frame" x="76" y="40" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <rect key="frame" x="45" y="23.5" width="105.5" height="53"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                            <color key="textColor" red="0.9832959771156311" green="0.035979244858026505" blue="0.53611689805984497" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.19573032855987549" green="0.19875085353851318" blue="0.26092472672462463" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OR5-0E-sBo" secondAttribute="trailing" id="3mE-xg-yS4"/>
                         <constraint firstItem="OR5-0E-sBo" firstAttribute="centerX" secondItem="g1e-35-Y5q" secondAttribute="centerX" id="4Hw-TH-1KZ"/>
+                        <constraint firstItem="OR5-0E-sBo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g1e-35-Y5q" secondAttribute="leading" id="Rlb-Hx-gIk"/>
                         <constraint firstItem="OR5-0E-sBo" firstAttribute="centerY" secondItem="g1e-35-Y5q" secondAttribute="centerY" id="dyR-6r-OmK"/>
                     </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GOAL" translatesAutoresizingMaskIntoConstraints="NO" id="b5F-q7-OIS">
-                    <rect key="frame" x="54" y="11" width="266" height="80"/>
+                    <rect key="frame" x="148.5" y="11" width="78" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="78" id="5U9-qQ-agr"/>
+                        <constraint firstAttribute="width" secondItem="b5F-q7-OIS" secondAttribute="height" multiplier="78:19" id="yFV-Qb-u8Y"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.097771041095256805" green="0.096519090235233307" blue="0.1628253161907196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -126,7 +132,7 @@
                 <outlet property="speed" destination="ReP-XO-NMG" id="w8c-9X-c3x"/>
                 <outlet property="totalTime" destination="OR5-0E-sBo" id="c6R-1a-qUq"/>
             </connections>
-            <point key="canvasLocation" x="-73.5" y="65.5"/>
+            <point key="canvasLocation" x="-73.5" y="65"/>
         </view>
     </objects>
     <resources>

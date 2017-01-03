@@ -11,6 +11,8 @@ import UIKit
 
 class SettingViewController: UIViewController {
 
+    var oldDistance : Int = 0
+
     //Label
     @IBOutlet weak var distanceAndTimeLabel: UILabel!
     @IBOutlet weak var distanceAndTimeSlider: UISlider!
@@ -64,6 +66,7 @@ class SettingViewController: UIViewController {
         //設定目標距離跟tempo
         controller.objectDistance = Int(distanceAndTimeLabel.text!)
         controller.tempoSpeed = Int(tempoLabel.text!)
+        controller.oldDistance = self.oldDistance
         //切換頁面
         self.navigationController?.pushViewController(controller, animated: true)
         
