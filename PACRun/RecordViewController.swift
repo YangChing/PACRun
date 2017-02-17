@@ -33,6 +33,7 @@ class RecordViewController: UIViewController {
                 let json = JSON(response.result.value)
                 //print("JSON: \(json)")
                 let count = json.count
+
                 for i in 0...(json.count-1){
                     if json[i]["fb_uid"].stringValue  == userDefault.value(forKey: nowUserKey) as? String{
                         user_id = json[i]["id"].stringValue
@@ -44,6 +45,7 @@ class RecordViewController: UIViewController {
                                 let json = JSON(response.result.value)
                                 //print("JSON: \(json)")
                                 var bigID:Int = 0
+                                if json.count >= 1 {
                                 for i in 0...(json.count-1){
                                     if json[i]["id"].intValue > bigID {
                                         bigID = i
@@ -55,6 +57,7 @@ class RecordViewController: UIViewController {
                                 self.speedLabel.text = "均速：" + json[bigID]["velocity"].stringValue + "km/hr"
 
                                 var time = [String]()
+
                                 time.append(json[bigID-1]["date"].stringValue)
                                 for ele in time {
                                     let get = ele.components(separatedBy: " ")
@@ -62,7 +65,7 @@ class RecordViewController: UIViewController {
 
                                     self.beforeRecordLabel.text = "上次紀錄" + "\(get[0])" +  json[bigID-1]["time"].stringValue
                                 }
-
+                                }
 
                             case .failure:
                                 print("error")

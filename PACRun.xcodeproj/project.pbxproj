@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		640700C41E4462420005C992 /* LocalCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640700C31E4462420005C992 /* LocalCoordinate.swift */; };
 		641E76EC1DFFCA0800F63994 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 641E76EB1DFFCA0800F63994 /* CoreMotion.framework */; };
+		642E92E71E1BA7E5002B4BB3 /* TempoFour.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 642E92E61E1BA7E5002B4BB3 /* TempoFour.mp3 */; };
 		6447C0EA1E14EC20004727BD /* GoalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6447C0E91E14EC20004727BD /* GoalView.xib */; };
 		6447C0EC1E14F056004727BD /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447C0EB1E14F056004727BD /* GoalView.swift */; };
 		6447C0EE1E150D5A004727BD /* TempoThree.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6447C0ED1E150D5A004727BD /* TempoThree.mp3 */; };
@@ -48,7 +50,9 @@
 /* Begin PBXFileReference section */
 		2A06E37A1E6AFC729492D631 /* Pods-PACRun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PACRun.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PACRun/Pods-PACRun.debug.xcconfig"; sourceTree = "<group>"; };
 		3A43B3C48A48B72ECBB7E495 /* Pods_PACRun.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PACRun.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		640700C31E4462420005C992 /* LocalCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCoordinate.swift; sourceTree = "<group>"; };
 		641E76EB1DFFCA0800F63994 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		642E92E61E1BA7E5002B4BB3 /* TempoFour.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TempoFour.mp3; sourceTree = "<group>"; };
 		6447C0E91E14EC20004727BD /* GoalView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoalView.xib; sourceTree = "<group>"; };
 		6447C0EB1E14F056004727BD /* GoalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		6447C0ED1E150D5A004727BD /* TempoThree.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TempoThree.mp3; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 				6468420E1E10C9D700C6ACC4 /* TempoOne.aif */,
 				646842121E1232A800C6ACC4 /* TempoTwo.mp3 */,
 				6447C0ED1E150D5A004727BD /* TempoThree.mp3 */,
+				642E92E61E1BA7E5002B4BB3 /* TempoFour.mp3 */,
 				646842101E10D4B500C6ACC4 /* GPSTransformation.swift */,
 				64BD450E1E1250070053E774 /* DrawRoute.swift */,
 				6447C0E91E14EC20004727BD /* GoalView.xib */,
@@ -149,6 +154,7 @@
 				64C547691E19116F00B2FB76 /* RecordCell.xib */,
 				64C5476B1E19124100B2FB76 /* RecordCell.swift */,
 				64C5476D1E19251000B2FB76 /* DetailViewController.swift */,
+				640700C31E4462420005C992 /* LocalCoordinate.swift */,
 			);
 			path = PACRun;
 			sourceTree = "<group>";
@@ -264,6 +270,7 @@
 				6447C0EE1E150D5A004727BD /* TempoThree.mp3 in Resources */,
 				64FAC7041DFAA5FE009C5760 /* LaunchScreen.storyboard in Resources */,
 				6468420F1E10C9D700C6ACC4 /* TempoOne.aif in Resources */,
+				642E92E71E1BA7E5002B4BB3 /* TempoFour.mp3 in Resources */,
 				646842131E1232A800C6ACC4 /* TempoTwo.mp3 in Resources */,
 				64FAC7011DFAA5FE009C5760 /* Assets.xcassets in Resources */,
 				6447C0EA1E14EC20004727BD /* GoalView.xib in Resources */,
@@ -339,6 +346,7 @@
 				64FE7CC81E06784A00660581 /* MainTabBarController.swift in Sources */,
 				64FE7CF91E08E43D00660581 /* SelectMapViewController.swift in Sources */,
 				64FE7CCC1E068D9D00660581 /* SettingViewController.swift in Sources */,
+				640700C41E4462420005C992 /* LocalCoordinate.swift in Sources */,
 				64FE7CD01E06982A00660581 /* StopViewController.swift in Sources */,
 				64D67CBA1E02B9E000EDC4D5 /* GPSManager.swift in Sources */,
 				64C5476E1E19251000B2FB76 /* DetailViewController.swift in Sources */,

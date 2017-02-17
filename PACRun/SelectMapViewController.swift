@@ -148,8 +148,10 @@ class SelectMapViewController: UIViewController {
                             self.slider.append(slider)
                         }
                     }
+                    if self.slider.count-1 > 0{
                     for i in 0...(self.slider.count-1) {
                         self.stackView.addSubview(self.slider[i])
+                    }
                     }
                     self.selfSlider.layer.zPosition = 0.5
                     print("id:\(count)")
@@ -194,8 +196,10 @@ class SelectMapViewController: UIViewController {
                             self.slider.append(slider)
                         }
                     }
+                    if self.slider.count-1 > 0{
                     for i in 0...(self.slider.count-1) {
                         self.stackView.addSubview(self.slider[i])
+                    }
                     }
                     self.selfSlider.layer.zPosition = 0.5
                 case .failure:

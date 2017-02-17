@@ -148,7 +148,7 @@ class StopViewController: UIViewController {
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatePointCount"), object: nil, userInfo: ["point_count": pointCount,"latitude": self.virLatitude!,"longitude" :self.virLongitude!,"heading":self.virHeading!])
 
                     case .failure:
-                        print("error")
+                        print("view did load error")
                     }
                 }
             }
@@ -461,8 +461,10 @@ class StopViewController: UIViewController {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatePointCount"), object: nil, userInfo: ["point_count": pointCount,"latitude": self.virLatitude!,"longitude" :self.virLongitude!,"heading":self.virHeading!])
 
                     //跑速
-                    if (GPSManager.sharedInstance.locationManager.location?.speed)! > 0{
-                    self.speedLabel.text = String(describing: (GPSManager.sharedInstance.locationManager.location?.speed)!*(36/10))
+                    if let GPSSpeed = GPSManager.sharedInstance.locationManager.location?.speed {
+                        if GPSSpeed > 0{
+                            self.speedLabel.text = String(describing: (GPSManager.sharedInstance.locationManager.location?.speed)!*(36/10))
+                        }
                     }
                     self.showFinishView()
 
@@ -582,7 +584,7 @@ extension StopViewController {
                             self.speedLabel.text = String(describing: (round((GPSManager.sharedInstance.locationManager.location?.speed)!*(36/10))*100)/100)
 
                         case .failure:
-                            print("error")
+                            print("move point error")
                         }
                     }
                 }
@@ -661,7 +663,7 @@ extension StopViewController {
                 }
                 
             case .failure:
-                print("error")
+                print("record error")
             }
         }
         

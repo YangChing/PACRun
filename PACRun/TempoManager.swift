@@ -18,7 +18,7 @@ class TempoManager{
     var setRate : Float? = 1
 
     func playSound() {
-        let url = Bundle.main.url(forResource: "TempoThree", withExtension: "mp3")!
+        let url = Bundle.main.url(forResource: "TempoFour", withExtension: "mp3")!
         do {
             player = try AVAudioPlayer(contentsOf: url)
             guard let player = player else { return }
